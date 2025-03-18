@@ -12,10 +12,10 @@ const Carousel = () => {
     const [current, setCurrent] = useState(0);
 
     const images = [
-        {id: 0, image: collection1},
+        {id: 3, image: collection1},
         {id: 1, image: collection2},
         {id: 2, image: collection3},
-        {id: 3, image: collection4},
+        {id: 0, image: collection4},
     ]
 
     const nextSlide = (prev) => {
