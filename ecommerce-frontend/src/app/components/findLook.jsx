@@ -14,12 +14,12 @@ const FindLook = () => {
     ]
 
     return(
-        <section className="w-full flex flex-col items-center rounded">
+        <section className="w-full flex flex-col items-center rounded mb-16">
             <h1 className="text-4xl mb-14">Find Your Look</h1>
 
             <div className="grid grid-cols-3 gap-x-8">
                 {images.map((item,index) => (
-                    <div key={index} className="relative w-[500px] h-[600px] cursor-pointer hover:scale-125 transition duration-300 ">
+                    <div key={index} className="relative w-[500px] h-[600px] cursor-pointer">
                         <Image 
                         src={item.src} 
                         alt={`Foto de ${item.label}`}
