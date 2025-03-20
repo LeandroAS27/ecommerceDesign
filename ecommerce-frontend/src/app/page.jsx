@@ -3,6 +3,7 @@ import Image from "next/image";
 import Header from "./components/header";
 import Carousel from "./components/carousel";
 import FindLook from "./components/findLook";
+import Trending from "./components/trending";
 
 export default function Home() {
 
@@ -17,6 +18,10 @@ export default function Home() {
         <main className="relative flex flex-col items-center w-full mt-16">
           <section className="w-full">
             <FindLook/>
+          </section>
+
+          <section className="w-full">
+            <Trending/>
           </section>
         </main>
       </div>

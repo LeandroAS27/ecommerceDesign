@@ -44,7 +44,7 @@ const Carousel = () => {
                             <p className="text-lg text-[#EEEEEE]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam unde mollitia explicabo incidunt ipsa error </p>
 
                             <button className="px-6 py-4 bg-[#EFEFEF] rounded-full mt-4">
-                                <span className="text-black font-bold">Explore the Collections</span>
+                                <span className="text-black font-bold cursor-pointer">Explore the Collections</span>
                             </button>
                         </div>
 
