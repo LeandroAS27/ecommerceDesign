@@ -1,40 +1,70 @@
 "use client"
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { setProducts } from '../redux/productSlice';
 import Image from 'next/image';
+import like from '../../../public/icons8-gostar-96.png';
+import liked from '../../../public/icons8-gostar-96 (1).png';
 
 const ProductList = () => {
     const dispatch = useDispatch()
-    const products = useSelector((state) => state.products.items);
+    const products = useSelector(state => state.products.items);
+    const [hovered, setHovered] = useState({});
+
+    const handleMouseEnter = (id) => {
+        setHovered((prevState) => ({...prevState, [id]: true}))
+    }
+
+    const handleMouseLeave = (id) => {
+        setHovered((prevState) => ({...prevState, [id]: false}))
+    }
 
     useEffect(() => {
         const fetchProducts = async () =>{
             try {
                 const response = await fetch('http://localhost:5000/products')
                 const data = await response.json();
-                dispatch(setProducts(data))
+                console.log(data)
+                dispatch(setProducts(data.result.slice(0, 6)))
             } catch (error) {
                 console.error("Erro ao buscar produtos", error)
             }
         }
         fetchProducts()
-    }, [dispatch])
 
+    }, [dispatch])
+    
+    
+    // console.log(products.result)
     return(
         <div className='grid grid-cols-3 gap-4'>
-            {products.map((product) => (
-                <div key={product.id} className='border p-4 rounded'>
-                    <Image 
-                    src={product.image} 
-                    alt={product.title} 
-                    className='w-full h-48 object-cover'
-                    />
-                    <h2 className='text-lg font-bold'>{product.title}</h2>
-                    <p className='text-gray-700'>{product.price}</p>
-                </div>
-            ))}
+            {products.length > 0 ? (
+                products.map(product => (
+                    <div key={product.idproducts} className='relative rounded'>
+                        <Image 
+                        // src={product.image_url} preciso configurar o multer e subir imagens no servidor de acordo com o produto
+                        alt={product.title} 
+                        className='w-full h-48 object-cover'
+                        width={32}
+                        height={32}
+                        />
+                        <h2 className='text-lg font-bold'>{product.name}</h2>
+                        <p className='text-gray-700'>R$ {product.price.toFixed(2)}</p>
+                        <Image 
+                        src={hovered[product.idproducts] ? liked : like} 
+                        alt='Botao de gostar'
+                        width={46}
+                        height={32}
+                        className='absolute top-4 right-4 bg-[#EFEFEF]/50 rounded-full p-2 cursor-pointer'
+                        onMouseEnter={() => handleMouseEnter(product.idproducts)}
+                        onMouseLeave={() => handleMouseLeave(product.idproducts)}
+                        />
+                    </div>
+                ))
+            ) : (
+                <p>Carregando Produtos...</p>
+            )}
         </div>
     )
 }

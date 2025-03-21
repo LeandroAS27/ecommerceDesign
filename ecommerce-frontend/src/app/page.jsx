@@ -4,6 +4,7 @@ import Header from "./components/header";
 import Carousel from "./components/carousel";
 import FindLook from "./components/findLook";
 import Trending from "./components/trending";
+import Footer from "./components/footer";
 
 export default function Home() {
 
@@ -23,8 +24,16 @@ export default function Home() {
           <section className="w-full">
             <Trending/>
           </section>
+
+          <section className="w-full">
+            <Carousel/>
+          </section>
         </main>
+
       </div>
+        <footer className="mt-16">
+          <Footer/>
+        </footer>
     </>
   );
 }

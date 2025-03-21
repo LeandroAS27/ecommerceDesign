@@ -5,7 +5,7 @@ const Trending = () => {
         <section className="w-full flex flex-col items-center rounded mb-16">
             <h1 className="text-4xl mb-14">Trending Now</h1>
 
-            <div>{/* produtos */}
+            <div className="mb-14">{/* produtos */}
                 <ProductList/>
             </div>
 
