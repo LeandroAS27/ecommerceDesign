@@ -1,4 +1,7 @@
 module.exports = {
+  corePlugins: {
+    transform: true,
+  },
     theme: {
       extend: {
         fontFamily: {

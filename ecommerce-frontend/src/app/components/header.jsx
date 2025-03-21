@@ -2,6 +2,7 @@ import Image from "next/image"
 import like from '../../../public/icons8-gostar-96.png'
 import cart from '../../../public/icons8-carrinho.png'
 import person from '../../../public/icons8-pessoa.png'
+import Link from "next/link"
 
 const Header = () => {
     return(
@@ -10,10 +11,18 @@ const Header = () => {
                 <h1 className="text-2xl font-bold">EcommerceDesign</h1>
 
                 <nav className="flex space-x-4 list-none">
-                    <li>Women</li>
-                    <li>Men</li>
-                    <li>Kids</li>
-                    <li>Collections</li>
+                    <Link href="/women">
+                        <span className="hover:text-red-500 transition duration-300">Women</span>
+                    </Link>
+                    <Link href="/men">
+                        <span className="hover:text-red-500 hover:scale-120 transition duration-300">Men</span>
+                    </Link>
+                    <Link href="/kids">
+                        <span className="hover:text-red-500 hover:scale-120 transition duration-300">Kids</span>
+                    </Link>
+                    <Link href="/collections">
+                        <span className="hover:text-red-500 hover:scale-120 transition duration-300">Collections</span>
+                    </Link>
                 </nav>
 
                 <div className="flex space-x-4">
