@@ -34,7 +34,7 @@ const Header = ({onCartClick}) => {
                         <Image src={like} alt="Icone de coracao" width={24} height={24}/>
                     </Link>
 
-                    <Link href="/login">
+                    <Link href="/auth/login">
                         <Image src={person} alt="Icone de uma pessoa" width={24} height={24}/>
                     </Link>
 
