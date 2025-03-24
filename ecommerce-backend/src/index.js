@@ -1,8 +1,11 @@
 import express from 'express'
 import cors from 'cors'
 import { conexao } from '../server.js'
-import productsRoute from './routes/productsRoute.js'
 const app = express()
+
+//routes
+import productsRoute from './routes/productsRoute.js'
+import usersRoute from './routes/usersRoute.js'
 
 //para o express ler json
 app.use(express.json())
@@ -14,6 +17,7 @@ app.get('/', (req, res) => {
 
 
 //definir rotas
-app.use("/", productsRoute)
+app.use('/', productsRoute)
+app.use('/', usersRoute)
 
 export default app

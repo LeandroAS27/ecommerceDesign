@@ -28,7 +28,7 @@ router.post('/products', (req, res) => {
             console.log("Erro ao inserir o novo produto", error)
             return res.status(500).json({message: "Erro ao inserir o novo produto", error})
         }
-        res.status(201).json({message: "Produto adicionado com sucesso", result})
+        res.status(201).json(result)
     })
 })
 
