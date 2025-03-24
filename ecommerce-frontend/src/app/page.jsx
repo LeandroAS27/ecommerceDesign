@@ -8,14 +8,23 @@ import Trending from "./components/trending";
 import Footer from "./components/footer";
 import ModalCart from "./components/modalCart";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleCart } from "./redux/modalSlice";
 
 export default function Home() {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  // const [isModalOpen, setIsModalOpen] = useState(false)
+  const dispatch = useDispatch();
+  const isModalOpen = useSelector((state) => state.modalCart.isModalOpen)
 
   const handleCartModal = () => {
-      setIsModalOpen((prev) => !prev)
-      console.log(`Mudou o estado para: ${isModalOpen}`)
+    dispatch(toggleCart())
+    console.log(`Estado do modal agora é ${!isModalOpen}`)
   }
+
+  // const handleCartModal = () => {
+  //     setIsModalOpen((prev) => !prev)
+  //     console.log(`Mudou o estado para: ${isModalOpen}`)
+  // }
   
   return (
     <>

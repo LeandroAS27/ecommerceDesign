@@ -20,4 +20,4 @@ const ModalCart = ({ onClose, isOpen }) => {
     )
 }
 
-export default ModalCart
+export default ModalCart;
