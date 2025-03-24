@@ -6,6 +6,7 @@ import collection2 from '../../../public/collection 2.webp'
 import collection3 from '../../../public/collection 3.webp'
 import collection4 from '../../../public/collection 4.webp'
 import { CircleArrowLeft, CircleArrowRight } from 'lucide-react';
+import Link from "next/link";
 
 
 const Carousel = () => {
@@ -44,7 +45,7 @@ const Carousel = () => {
                             <p className="text-lg text-[#EEEEEE]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam unde mollitia explicabo incidunt ipsa error </p>
 
                             <button className="px-6 py-4 bg-[#EFEFEF] rounded-full mt-4">
-                                <span className="text-black font-bold cursor-pointer">Explore the Collections</span>
+                                <Link href='/collections' className="text-black font-bold cursor-pointer">Explore the Collections</Link>
                             </button>
                         </div>
 

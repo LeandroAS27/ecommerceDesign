@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import womenCollection from '../../../public/womenCollection.jpg';
 import menCollection2 from '../../../public/menCollection2.webp';
@@ -19,19 +20,24 @@ const FindLook = () => {
 
             <div className="grid grid-cols-3 gap-x-8">
                 {images.map((item,index) => (
-                    <div key={index} className="relative w-[500px] h-[600px] cursor-pointer">
-                        <Image 
-                        src={item.src} 
-                        alt={`Foto de ${item.label}`}
-                        layout="fill"
-                        objectFit="cover"
-                        className="rounded"
-                        />
+                    <Link href={`/${item.label.toLowerCase()}`} passHref>
+                        <div 
+                        key={index} 
+                        className="relative w-[500px] h-[600px] cursor-pointer"
+                        >
+                            <Image 
+                            src={item.src} 
+                            alt={`Foto de ${item.label}`}
+                            fill
+                            style={{objectFit: "cover"}}
+                            className="rounded"
+                            />
 
-                        <div className="absolute right-4 bottom-4 px-4 py-2 bg-white rounded">
-                            <p>{item.label}</p>
+                            <div className="absolute right-4 bottom-4 px-4 py-2 bg-white rounded">
+                                <p>{item.label}</p>
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                 ))}
             </div>
         </section>

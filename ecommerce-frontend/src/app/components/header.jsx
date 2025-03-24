@@ -1,10 +1,14 @@
+"use client"
+
 import Image from "next/image"
 import like from '../../../public/icons8-gostar-96.png'
 import cart from '../../../public/icons8-carrinho.png'
 import person from '../../../public/icons8-pessoa.png'
 import Link from "next/link"
+import { useState } from "react"
 
-const Header = () => {
+const Header = ({onCartClick}) => {
+
     return(
         <>
             <header className="flex w-full justify-between my-8 font-title items-center">
@@ -26,9 +30,15 @@ const Header = () => {
                 </nav>
 
                 <div className="flex space-x-4">
-                    <Image src={like} alt="Icone de coracao" width={24} height={24}/>
-                    <Image src={person} alt="Icone de uma pessoa" width={24} height={24}/>
-                    <Image src={cart} alt="Icone de um carrinho" width={24} height={24}/>
+                    <Link href="/favourites">                    
+                        <Image src={like} alt="Icone de coracao" width={24} height={24}/>
+                    </Link>
+
+                    <Link href="/login">
+                        <Image src={person} alt="Icone de uma pessoa" width={24} height={24}/>
+                    </Link>
+
+                    <Image src={cart} alt="Icone de um carrinho" width={24} height={24} onClick={onCartClick} className="cursor-pointer"/>
                 </div>
             </header>
         </>

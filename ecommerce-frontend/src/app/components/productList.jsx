@@ -49,7 +49,7 @@ const ProductList = ({showAll}) => {
                     <div key={product.idproducts} className='relative rounded'>
                         <Image 
                         // src={product.image_url} preciso configurar o multer e subir imagens no servidor de acordo com o produto
-                        alt={product.title} 
+                        alt={product.name} 
                         className='w-full h-48 object-cover'
                         width={32}
                         height={32}
