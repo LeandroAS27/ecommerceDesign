@@ -8,14 +8,51 @@ import Link from "next/link";
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [isLogin, setIsLogin] = useState(false);
+    const [success, setSucess] = useState('')
+    const [error, setError] = useState('')
+
+    const userData = {email, password}
 
     const handleShowPassword = (e) => {
         e.preventDefault()
         setShowPassword((prev) => !prev);
     }   
 
-    const handleSubmit = () => {
-        
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        const sendData = async () => {
+            try {
+                const response = await fetch("http://localhost:5000/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(userData)
+                })
+                if(!response.ok){
+                    throw new Error(`Erro ao enviar os dados. ${response.status}`)
+                }
+                const data = await response.json()
+                if(isLogin){
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data))
+                    router.push('/profile')
+                    setSucess("Login feito com sucesso")
+                    setSucess('')
+                }else{
+                    alert(data.message)
+                    setSucess('')
+                }
+                console.log("Dados enviados com sucesso", data)
+            } catch (error) {
+                console.log("Erro ao enviar os dados", error)
+            }
+        }
+        sendData()
     }
 
     return(
@@ -30,6 +67,7 @@ const Login = () => {
                         type="email" 
                         placeholder="Email Address" 
                         className="p-2 border rounded-lg w-full px-4 py-3 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+                        onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
 
@@ -38,6 +76,7 @@ const Login = () => {
                         type={`${showPassword ? "text" : "password"}`} 
                         placeholder="Password" 
                         className="w-full p-2 border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+                        onChange={(e) => setPassword(e.target.value)}
                         />
                         <button 
                         className="absolute right-0 inset-y-0 flex items-center pr-3" 
