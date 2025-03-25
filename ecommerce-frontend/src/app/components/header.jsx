@@ -12,12 +12,10 @@ const Header = ({onCartClick}) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
 
     useState(() => {
-
         if(typeof window !== 'undefined'){
             const token = localStorage.getItem('token')
             setIsLoggedIn(!!token);
         }
-
     }, [])
 
     const handleLogout = () => {
@@ -48,7 +46,7 @@ const Header = ({onCartClick}) => {
                 </nav>
 
                 <div className="flex space-x-4">
-                    <Link href="/favourites">                    
+                    <Link href="/favorites">                    
                         <Image src={like} alt="Icone de coracao" width={24} height={24}/>
                     </Link>
 

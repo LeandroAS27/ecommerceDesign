@@ -1,15 +1,21 @@
 "use client"
 
-import Image from "next/image";
+//components
 import Header from "./components/header";
 import Carousel from "./components/carousel";
 import FindLook from "./components/findLook";
 import Trending from "./components/trending";
 import Footer from "./components/footer";
 import ModalCart from "./components/modalCart";
-import { useState } from "react";
+
+//redux
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCart } from "./redux/modalSlice";
+
+
+//react
+import Image from "next/image";
+import { useState } from "react";
 
 export default function Home() {
   // const [isModalOpen, setIsModalOpen] = useState(false)
