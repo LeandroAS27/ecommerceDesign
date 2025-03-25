@@ -8,6 +8,24 @@ import Link from "next/link"
 import { useState } from "react"
 
 const Header = ({onCartClick}) => {
+    const [isOpen, setIsOpen] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+    useState(() => {
+
+        if(typeof window !== 'undefined'){
+            const token = localStorage.getItem('token')
+            setIsLoggedIn(!!token);
+        }
+
+    }, [])
+
+    const handleLogout = () => {
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
+        alert("deslogado com sucesso") 
+        window.location.reload()    
+    }
 
     return(
         <>
@@ -34,9 +52,40 @@ const Header = ({onCartClick}) => {
                         <Image src={like} alt="Icone de coracao" width={24} height={24}/>
                     </Link>
 
-                    <Link href="/auth/login">
+                    <div 
+                    className="relative" 
+                    onMouseEnter={() => setIsOpen(() => setIsOpen(true))} 
+                    onMouseLeave={() => setIsOpen(false)}
+                    >
+                        <Image 
+                        src={person} 
+                        alt="Icone de uma pessoa" 
+                        width={24} 
+                        height={24}
+                        />
+
+                        {isOpen && (
+                            <div className="absolute right-0 mt-2 w-40 bg-[#F7F7F7] shadow-lg rounded-lg p-2 z-60">
+                                <Link href={`${isLoggedIn > 0 ? '/profile' : '/auth/login'}`}>
+                                    <button className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                        {isLoggedIn > 0 ? 'Meu Perfil' : 'Login'}
+                                    </button>
+                                </Link>
+
+                                {isLoggedIn && (
+                                    <button 
+                                    className="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100" 
+                                    onClick={handleLogout}>
+                                        Sair
+                                    </button>
+                                )}
+                            </div>
+                        )}
+                    </div>
+
+                    {/* <Link href="/auth/login">
                         <Image src={person} alt="Icone de uma pessoa" width={24} height={24}/>
-                    </Link>
+                    </Link> */}
 
                     <Image src={cart} alt="Icone de um carrinho" width={24} height={24} onClick={onCartClick} className="cursor-pointer"/>
                 </div>

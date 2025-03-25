@@ -5,6 +5,7 @@ import Image from "next/image";
 import Eye from '../../../../public/olho-visível.png';
 import EyeClosed from '../../../../public/olho-fechado.png';
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -13,6 +14,7 @@ const Login = () => {
     const [isLogin, setIsLogin] = useState(false);
     const [success, setSucess] = useState('')
     const [error, setError] = useState('')
+    const router = useRouter()
 
     const userData = {email, password}
 
@@ -23,8 +25,9 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
+        
         const sendData = async () => {
+            setIsLogin((prev) => !prev)
             try {
                 const response = await fetch("http://localhost:5000/login", {
                     method: "POST",
@@ -37,10 +40,11 @@ const Login = () => {
                     throw new Error(`Erro ao enviar os dados. ${response.status}`)
                 }
                 const data = await response.json()
+                console.log(isLogin)
                 if(isLogin){
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('user', JSON.stringify(data))
-                    router.push('/profile')
+                    router.push('/')
                     setSucess("Login feito com sucesso")
                     setSucess('')
                 }else{
