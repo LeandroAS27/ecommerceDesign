@@ -28,7 +28,7 @@ const Header = ({onCartClick}) => {
     return(
         <>
             <header className="flex w-full justify-between my-8 font-title items-center">
-                <h1 className="text-2xl font-bold">EcommerceDesign</h1>
+                <h1 className="text-2xl font-bold"><Link href='/'>EcommerceDesign</Link></h1>
 
                 <nav className="flex space-x-4 list-none">
                     <Link href="/women">

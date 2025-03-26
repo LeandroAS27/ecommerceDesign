@@ -1,15 +1,21 @@
 "use client"
 
+//react
 import { useEffect, useState } from 'react';
+
+//redux
 import {useDispatch, useSelector} from 'react-redux';
 import { setProducts } from '../redux/productSlice';
+
+//images
 import Image from 'next/image';
 import like from '../../../public/icons8-gostar-96.png';
 import liked from '../../../public/icons8-gostar-96 (1).png';
+import noImage from '../../../public/image-no-image.jpg';
 
 const ProductList = ({showAll}) => {
     const dispatch = useDispatch()
-    const products = useSelector(state => state.products.items);
+    const products = useSelector((state) => state.products.items);
     const [hovered, setHovered] = useState({});
 
     
@@ -30,6 +36,7 @@ const ProductList = ({showAll}) => {
                 const response = await fetch('http://localhost:5000/products')
                 const data = await response.json();
                 console.log(data)
+
                 const showProducts = showAll ? data.result : data.result.slice(0, 6)
                 dispatch(setProducts(showProducts))
             } catch (error) {
@@ -40,15 +47,15 @@ const ProductList = ({showAll}) => {
 
     }, [dispatch, showAll])
     
+    console.log(products)
     
-    // console.log(products.result)
     return(
         <div className='grid grid-cols-3 gap-4'>
             {products.length > 0 ? (
                 products.map(product => (
                     <div key={product.idproducts} className='relative rounded'>
                         <Image 
-                        // src={product.image_url} preciso configurar o multer e subir imagens no servidor de acordo com o produto
+                        src={noImage} //preciso configurar o multer e subir imagens no servidor de acordo com o produto
                         alt={product.name} 
                         className='w-full h-48 object-cover'
                         width={32}
