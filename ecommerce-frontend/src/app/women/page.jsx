@@ -4,12 +4,10 @@
 import Header from "../components/header";
 import Footer from "../components/footer";
 
-
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../redux/productSlice";
 import { toggleCart } from "../redux/modalSlice";
-
 
 //react
 import { useEffect } from "react";
@@ -33,9 +31,9 @@ const Women = () => {
 
     const handleBuy = (id, product) => {   
         localStorage.setItem('SelectedProduct', JSON.stringify(product))
-        if(products.idproducts){
-            return;
-        }
+        // if(!product || !products.idproducts){ arrumar a condicional
+        //     return;
+        // }
         router.push(`/products/${id}`)
     }
 
