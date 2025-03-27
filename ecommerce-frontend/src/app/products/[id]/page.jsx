@@ -168,8 +168,10 @@ const ProductPage = ({ params }) => {
                                     <button className="px-4 py-2 bg-white rounded-lg cursor-pointer">Calcular</button>
                                 </div>
 
-                                <Link href='/'>
-                                    <span className="underline text-blue-500 cursor-pointer">Don't know my Zip-Code</span>
+                                <Link href='https://buscacepinter.correios.com.br/app/endereco/index.php' legacyBehavior>
+                                    <a target="_blank" rel="noopener noreferrer" className="underline text-blue-500 cursor-pointer">
+                                        Don't know my Zip-Code
+                                    </a>
                                 </Link>
                             </div>
                         </div>
