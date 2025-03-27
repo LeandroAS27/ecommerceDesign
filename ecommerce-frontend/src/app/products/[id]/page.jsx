@@ -13,6 +13,7 @@ import Link from "next/link";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCart } from "../../redux/modalSlice";
+import { addToCart, removeFromCart } from "../../redux/cartSlice";
 import { incrementQuantity, decrementQuantity } from "../../redux/productSlice";
 
 //images
@@ -21,8 +22,9 @@ import noImage from '../../../../public/image-no-image.jpg';
 
 const ProductPage = ({ params }) => {
     const dispatch = useDispatch();
-    const { id } = useParams();
     const isModalOpen = useSelector((state) => state.modalCart.isModalOpen)
+    const cart = useSelector(state => state.cart.cart)
+    const { id } = useParams();
     const [SelectedProduct, setSelectedProduct] = useState({})
     const [value, setValue] = useState(0)
     
@@ -44,6 +46,15 @@ const ProductPage = ({ params }) => {
     const handleCartModal = () => {
         dispatch(toggleCart())
         console.log(`Estado do modal agora é ${!isModalOpen}`)
+    }
+
+    const handleAddToCart = () => { 
+        const storedItem = localStorage.getItem('SelectedProduct');
+        if(!storedItem) return;
+
+        const newItem = JSON.parse(storedItem);
+
+        dispatch(addToCart(newItem));
     }
 
     useEffect(() => {
@@ -135,7 +146,12 @@ const ProductPage = ({ params }) => {
 
                             <div className="flex flex-col space-y-2">
                                 <button className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-2 cursor-pointer">Comprar agora</button>
-                                <button className="bg-[#333333] text-white px-4 py-2 rounded-lg mt-2 cursor-pointer">Adicionar ao Carrinho</button>
+                                <button 
+                                className="bg-[#333333] text-white px-4 py-2 rounded-lg mt-2 cursor-pointer"
+                                onClick={handleAddToCart}
+                                >
+                                    Adicionar ao Carrinho
+                                </button>
                             </div>
                         </div>
 
