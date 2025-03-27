@@ -57,13 +57,13 @@ const ModalCart = ({ onClose, isOpen }) => {
                                 </div>
 
                                 <div className="flex justify-center items-center space-x-2">
-                                    <span className="text-xl font-bold text-gray-700 hover:text-gray-900 transition">
+                                    <span className="text-2xl font-bold text-gray-700 hover:text-gray-900 transition cursor-pointer">
                                         -
                                     </span>
 
-                                    <span className="text-gray-700">{item.quantity || 1}</span>
+                                    <span className="text-gray-700">{item.stock}</span>
 
-                                    <span className="text-xl font-bold text-gray-700 hover:text-gray-900 transition">
+                                    <span className="text-2xl font-bold text-gray-700 hover:text-gray-900 transition cursor-pointer">
                                         +
                                     </span>
 
@@ -75,12 +75,14 @@ const ModalCart = ({ onClose, isOpen }) => {
                     ) : <p>Itens no carrinho...</p>
                     }
                 </div>
-
-                <div className="mt-6">
+                {cart.length > 0 && (
+                    <div className="mt-6">
                     <button className="w-full py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
                         Finalizar Compra
                     </button>
-                </div>
+                    </div>
+                )}
+
             </div>
         </div>  
     )

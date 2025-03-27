@@ -65,14 +65,14 @@ const Header = ({onCartClick}) => {
                         {isOpen && (
                             <div className="absolute right-0 mt-2 w-40 bg-[#F7F7F7] shadow-lg rounded-lg p-2 z-60">
                                 <Link href={`${isLoggedIn > 0 ? '/profile' : '/auth/login'}`}>
-                                    <button className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                    <button className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
                                         {isLoggedIn > 0 ? 'Meu Perfil' : 'Login'}
                                     </button>
                                 </Link>
 
                                 {isLoggedIn && (
                                     <button 
-                                    className="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100" 
+                                    className="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100 cursor-pointer" 
                                     onClick={handleLogout}>
                                         Sair
                                     </button>

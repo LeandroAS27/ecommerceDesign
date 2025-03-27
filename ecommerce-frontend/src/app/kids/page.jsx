@@ -64,34 +64,51 @@ const Kids = () => {
             <main className="w-full h-screen flex">
                 {/* filter section */}
                 <section className="flex flex-1 w-24 h-full mr-2"> 
-                    <div className="w-full border rounded flex flex-col items-center">
-                        <div className="border rounded mt-8 bg-[#F5F5F5] w-full max-w-2/3">
-                            <div className="flex p-4 space-x-4 items-center">
-                                <h1>Ordernar por</h1>
-                                <select className="bg-white rounded-md p-2"> 
-                                    <option value="">Relevance</option>
-                                    <option value="">Lowest Price</option>
-                                    <option value="">Highest Price</option>
-                                    <option value="">A - Z</option>
-                                    <option value="">Z - A</option>
+                    <div className="w-full rounded flex flex-col items-center">
+                        <div className="rounded my-8 bg-[#F5F5F5] w-full max-w-2/3 p-6 shadow-md">   
+                            <div className="flex space-x-4 items-center justify-between">
+                                <h2 className="text-lg font-semibold mb-4">Ordernar por</h2>
+
+
+                                <select className="bg-white rounded-md p-2 mb-4"> 
+                                    <option value="relevance">Relevance</option>
+                                    <option value="lowest">Lowest Price</option>
+                                    <option value="highest">Highest Price</option>
+                                    <option value="a-z">A - Z</option>
+                                    <option value="z-a">Z - A</option>
                                 </select>
                             </div>
+                                <div className="border-b mb-4"/>
 
-                            <div className="">
-                                <h1>Tamanho</h1>
+                            <div className="rounded">
+                                <h2 className="text-lg font-semibold mb-4">Tamanho</h2>
 
-                                <input type="text" placeholder="Buscar Tamanho" />
+                                <input 
+                                type="text" 
+                                placeholder="Buscar Tamanho" 
+                                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+                                />
                             </div>
                         </div>
 
-                        <div className="border rounded mt-8 bg-[#F5F5F5] w-full max-w-2/3">
+                        <div className="rounded bg-[#F5F5F5] p-6 shadow-md w-full max-w-2/3">
                             <div className="border-b mb-4">
-                                <h1 className="my-4 ml-4">Categories</h1>
+                                <h2 className="text-lg font-semibold mb-4">Categories</h2>
                             </div>
 
-                            <div className="hover:bg-black hover:text-white transform transition duration-300 cursor-pointer">
-                                <h1>Shirts</h1>
-                            </div>
+                            <ul className="space-y-2">
+                                <li className="cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition">
+                                    Shirts
+                                </li>
+
+                                <li className="cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition">
+                                    Pants
+                                </li>
+
+                                <li className="cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition">
+                                    Accessories
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </section>
