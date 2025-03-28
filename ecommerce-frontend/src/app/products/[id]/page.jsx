@@ -13,7 +13,7 @@ import Link from "next/link";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCart } from "../../redux/modalSlice";
-import { addToCart, removeFromCart } from "../../redux/cartSlice";
+import { addToCart, removeFromCart, updateCartItem } from "../../redux/cartSlice";
 import { incrementQuantity, decrementQuantity } from "../../redux/productSlice";
 
 //images
@@ -36,11 +36,11 @@ const ProductPage = ({ params }) => {
         setValue((prev) => (prev > 0 ? prev - 1 : prev))
     }
 
-    const handleChangeQuantity = () => { //rever a logica dessa funcao
-        if(handleQuantityIncrement){
-            handleQuantityIncrement()
+    const handleChangeQuantity = (event) => { //rever a logica dessa funcao
+        const newQuantity = parseInt(event.target.value)
+        if(!isNaN(newQuantity) && newQuantity >= 1){
+            setValue(newQuantity);
         }
-        handleQuantityDecrement()
     }
     
     const handleCartModal = () => {
@@ -54,7 +54,17 @@ const ProductPage = ({ params }) => {
 
         const newItem = JSON.parse(storedItem);
 
-        dispatch(addToCart(newItem));
+        const existingProduct = cart.find(item => item.idproducts == newItem.idproducts);
+
+        if(existingProduct){
+            dispatch(updateCartItem({
+                idproducts: newItem.idproducts,
+                quantity: existingProduct.quantity + Number(value)
+            }))
+        }else{
+            dispatch(addToCart({...newItem, quantity: value}));
+        }
+
     }
 
     useEffect(() => {

@@ -1,8 +1,11 @@
 "use client"
 
+//react
+import { useState } from "react";
+
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeFromCart } from "../redux/cartSlice";
+import { addToCart, increaseQuantityFromCart, decreaseQuantityFromCart, removeFromCart, updateCartItem } from "../redux/cartSlice";
 
 //images
 import Image from "next/image";
@@ -11,16 +14,18 @@ import thrash from '../../../public/lixo.png';
 
 const ModalCart = ({ onClose, isOpen }) => {
     const dispatch = useDispatch();
-
     const cart = useSelector(state => state.cart.cart)
-
-    const handleAddItem = () => {
-        const newItem = {id: Date.now(), product: "notebook"}//tenho que tirar o item do localstorage
-        dispatch(addToCart(newItem))
+    
+    const handleDecrease = (idproducts) => {
+        dispatch(decreaseQuantityFromCart(idproducts))
     }
 
-    const handleRemoveFromCart = (id) => {
-        dispatch(removeFromCart(id));
+    const handleIncrease = (idproducts) => {
+        dispatch(increaseQuantityFromCart(idproducts))
+    }
+
+    const handleRemoveFromCart = (idproducts) => {
+        dispatch(removeFromCart(idproducts));
     }
 
     console.log(cart)
@@ -57,17 +62,32 @@ const ModalCart = ({ onClose, isOpen }) => {
                                 </div>
 
                                 <div className="flex justify-center items-center space-x-2">
-                                    <span className="text-2xl font-bold text-gray-700 hover:text-gray-900 transition cursor-pointer">
+                                    <span 
+                                    className="text-2xl font-bold text-gray-700 hover:text-gray-900 transition cursor-pointer"
+                                    onClick={() => handleDecrease(item.idproducts)}
+                                    >
                                         -
                                     </span>
 
-                                    <span className="text-gray-700">{item.stock}</span>
+                                    <span className="text-gray-700">{item.quantity}</span>
 
-                                    <span className="text-2xl font-bold text-gray-700 hover:text-gray-900 transition cursor-pointer">
+                                    <span 
+                                    className="text-2xl font-bold text-gray-700 hover:text-gray-900 transition cursor-pointer"
+                                    onClick={() => handleIncrease(item.idproducts)}
+                                    >
                                         +
                                     </span>
 
-                                    <span><Image src={thrash} alt="thrash icon" className="" width={24} height={24}/></span>
+                                    <span>
+                                        <Image 
+                                        src={thrash} 
+                                        alt="thrash icon" 
+                                        className="cursor-pointer" 
+                                        width={24} 
+                                        height={24}
+                                        onClick={() => handleRemoveFromCart(item.idproducts)}
+                                        />
+                                    </span>
                                 </div>
 
                             </div>
