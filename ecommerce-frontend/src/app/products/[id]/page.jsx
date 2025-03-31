@@ -155,7 +155,13 @@ const ProductPage = ({ params }) => {
                             </div>
 
                             <div className="flex flex-col space-y-2">
-                                <button className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-2 cursor-pointer">Comprar agora</button>
+                                <button 
+                                className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-2 cursor-pointer"
+                                >
+                                    <Link href='/checkout'> {/* aqui vai enviar o produto para o checkout */}
+                                        Comprar Agora
+                                    </Link>
+                                </button>
                                 <button 
                                 className="bg-[#333333] text-white px-4 py-2 rounded-lg mt-2 cursor-pointer"
                                 onClick={handleAddToCart}

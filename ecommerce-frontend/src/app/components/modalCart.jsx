@@ -2,6 +2,7 @@
 
 //react
 import { useState } from "react";
+import Link from "next/link";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -97,8 +98,10 @@ const ModalCart = ({ onClose, isOpen }) => {
                 </div>
                 {cart.length > 0 && (
                     <div className="mt-6">
-                    <button className="w-full py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
-                        Finalizar Compra
+                    <button className="w-full py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition cursor-pointer">
+                        <Link href='/checkout'> {/* aqui vai enviar os produtos para o checkout */}
+                            Finalizar Compra
+                        </Link>
                     </button>
                     </div>
                 )}

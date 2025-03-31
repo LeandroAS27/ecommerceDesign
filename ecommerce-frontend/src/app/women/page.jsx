@@ -10,7 +10,7 @@ import { setProducts } from "../redux/productSlice";
 import { toggleCart } from "../redux/modalSlice";
 
 //react
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -23,6 +23,7 @@ const Women = () => {
     const products = useSelector(state => state.products.items)
     const isModalOpen = useSelector((state) => state.modalCart.isModalOpen)
     const router = useRouter()
+    const [type, setType] = useState('')
 
     const handleCartModal = () => {
         dispatch(toggleCart())
@@ -50,9 +51,33 @@ const Women = () => {
             }
         }
         fetchProducts()
+
     }, [dispatch])
+    
+    const typeProducts = async () => {
+        try {
+            const response = await fetch(`http://localhost:5000/products/type?type=${type}`)
+            if(!response.ok){
+                throw new Error("erro ao buscar o produto especifico", response.status)
+            }
+            const data = await response.json()
+            console.log(data)
+            dispatch(setProducts(data.result || data))
+        } catch (error) {
+            console.log("erro ao buscar os dados", error)
+        }
+    }
 
+    const handleFilterClick = (type) => {
+        setType(type)
+    }
 
+    useEffect(() => {
+        if(type){
+            typeProducts(type)
+        }
+    }, [type])
+    
     return(
     <>
         <div className="relative max-w-9/10 mx-auto px-2 bg-[#FFFFFF]">
@@ -97,16 +122,20 @@ const Women = () => {
                             </div>
 
                             <ul className="space-y-2">
-                                <li className="cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition">
+                                <li className="cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition" onClick={() => handleFilterClick('shirts')}>
                                     Shirts
                                 </li>
 
-                                <li className="cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition">
+                                <li className="cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition" onClick={() => handleFilterClick('pants')}>
                                     Pants
                                 </li>
 
-                                <li className="cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition">
+                                <li className="cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition" onClick={() => handleFilterClick('accessories')}>
                                     Accessories
+                                </li>
+
+                                <li className="cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition" onClick={() => handleFilterClick('blouse')}>
+                                    Blouse
                                 </li>
                             </ul>
                         </div>

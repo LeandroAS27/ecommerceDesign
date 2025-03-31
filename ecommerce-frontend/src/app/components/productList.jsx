@@ -55,7 +55,7 @@ const ProductList = ({showAll}) => {
                 products.map(product => (
                     <div key={product.idproducts} className='relative rounded'>
                         <Image 
-                        src={noImage} //preciso configurar o multer e subir imagens no servidor de acordo com o produto
+                        src={product.image_url ? product.image_url : noImage} //preciso configurar o multer e subir imagens no servidor de acordo com o produto
                         alt={product.name} 
                         className='w-full h-48 object-cover'
                         width={32}
