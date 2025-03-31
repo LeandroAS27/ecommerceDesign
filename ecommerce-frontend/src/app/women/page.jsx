@@ -61,8 +61,9 @@ const Women = () => {
                 throw new Error("erro ao buscar o produto especifico", response.status)
             }
             const data = await response.json()
+            const filterData = data.result.filter(item => item.category_idcategories === 1)
             console.log(data)
-            dispatch(setProducts(data.result || data))
+            dispatch(setProducts(filterData))
         } catch (error) {
             console.log("erro ao buscar os dados", error)
         }
@@ -122,7 +123,7 @@ const Women = () => {
                             </div>
 
                             <ul className="space-y-2">
-                                <li className="cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition" onClick={() => handleFilterClick('shirts')}>
+                                <li className="cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition" onClick={() => handleFilterClick('shirt')}>
                                     Shirts
                                 </li>
 
