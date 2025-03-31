@@ -23,7 +23,7 @@ const Women = () => {
     const products = useSelector(state => state.products.items)
     const isModalOpen = useSelector((state) => state.modalCart.isModalOpen)
     const router = useRouter()
-    const [type, setType] = useState('')
+    const [type, setType] = useState('') // colocar isso no redux
 
     const handleCartModal = () => {
         dispatch(toggleCart())
@@ -87,7 +87,7 @@ const Women = () => {
                 <ModalCart isOpen={isModalOpen} onClose={handleCartModal}/>
             </header>
 
-            <main className="w-full h-screen flex">
+            <main className="w-full h-full flex">
                 {/* filter section */}
                 <section className="flex flex-1 w-24 h-full mr-2"> 
                     <div className="w-full rounded flex flex-col items-center">
