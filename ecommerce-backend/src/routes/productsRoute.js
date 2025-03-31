@@ -15,6 +15,7 @@ router.get('/products', (req, res) => {
     })
 })
 
+
 //tem que ser uma rota autenticada para o admin adicionar os produtos
 router.post('/products', (req, res) => {
     const {name, description, price, category_idcategories, stock, image_url} = req.body
