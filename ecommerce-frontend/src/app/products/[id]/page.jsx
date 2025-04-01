@@ -7,8 +7,9 @@ import ModalCart from "../../components/modalCart";
 
 //react
 import { useParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import IMask from "imask";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -27,6 +28,7 @@ const ProductPage = ({ params }) => {
     const { id } = useParams();
     const [SelectedProduct, setSelectedProduct] = useState({})
     const [value, setValue] = useState(0)
+    const inputRef = useRef(null);
     
     const handleQuantityIncrement = () => {
         setValue((prev) => prev + 1)
@@ -76,6 +78,15 @@ const ProductPage = ({ params }) => {
         }
     }, [])
 
+    useEffect(() => {   
+        if(inputRef.current){
+            IMask(inputRef.current, {
+                mask: "00000-000",
+                lazy: false
+            })
+        }
+    }, [])
+
     return(
         <>
             <div className="relative max-w-9/10 mx-auto px-2 bg-[#FFFFFF]">
@@ -97,7 +108,7 @@ const ProductPage = ({ params }) => {
 
                         <div className="bg-[#F5F5F5] rounded-lg w-full p-8 text-black">
                             <h1 className="mb-4 text-xl">Description</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non voluptate magni nihil sint quidem deleniti nam explicabo corrupti, vitae possimus accusamus ipsum quam minus cum? Recusandae modi fugit ipsa natus.</p>
+                            <p>{SelectedProduct.description}</p>
                             <p>Tamanho da Camiseta:</p>
                             <p>P: 00 x 00 cm</p>
                             <p>M: 00 x 00 cm</p>
@@ -114,7 +125,7 @@ const ProductPage = ({ params }) => {
                             </div>
 
                             <h1 className="text-3xl font-bold font-title mt-8 mb-4">{SelectedProduct.name}</h1>
-                            <p className="text-black">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem repudiandae inventore quam numquam architecto cumque cum harum.</p>
+                            <p className="text-black">{SelectedProduct.description}</p>
                             <p className="underline text-blue-500 mb-4 cursor-pointer">More information</p>
 
                             <div className="space-y-2 text-black">
@@ -177,7 +188,8 @@ const ProductPage = ({ params }) => {
                             <div className="flex flex-col gap-3">
                                 <div className="flex max-w-2/3 space-x-4">
                                     <input 
-                                    type="number" 
+                                    ref={inputRef}
+                                    type="text" 
                                     placeholder="00000-000" 
                                     className="flex-1 p-3 rounded-lg bg-[#FFFFFF] focus:outline-none focus:ring-2 focus:ring-blue-400 transition appearance-none"
                                     />
