@@ -6,7 +6,7 @@ import Footer from "../components/footer";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { setProducts } from "../redux/productSlice";
+import { setProducts, sortProducts } from "../redux/productSlice";
 import { toggleCart } from "../redux/modalSlice";
 
 //react
@@ -24,6 +24,7 @@ const Kids = () => {
     const isModalOpen = useSelector(state => state.modalCart.isModalOpen);
     const router = useRouter();
     const [type, setType] = useState('')
+    const [value, setValue] = useState('')
 
     const handleCartModal = () => {
         dispatch(toggleCart())
@@ -78,6 +79,12 @@ const Kids = () => {
         }
     }, [type])
 
+    const handleOptionSelected = (e) => {
+        const option = e.target.value
+        setValue(option)
+        dispatch(sortProducts(option))
+    }
+
     return(
         <>
         <div className="relative max-w-9/10 mx-auto px-2 bg-[#FFFFFF]">
@@ -95,8 +102,7 @@ const Kids = () => {
                                 <h2 className="text-lg font-semibold mb-4">Ordernar por</h2>
 
 
-                                <select className="bg-white rounded-md p-2 mb-4"> 
-                                    <option value="relevance">Relevance</option>
+                                <select className="bg-white rounded-md p-2 mb-4" value={value} onChange={handleOptionSelected}> 
                                     <option value="lowest">Lowest Price</option>
                                     <option value="highest">Highest Price</option>
                                     <option value="a-z">A - Z</option>
