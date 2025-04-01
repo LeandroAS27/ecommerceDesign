@@ -42,11 +42,11 @@ const Carousel = () => {
                             <h1 className="text-5xl text-[#FDFAF6] font-bold">Timeless Fashion,</h1>
                             <h2 className="text-3xl text-[#FDFAF6]">Conscious Choices</h2>
 
-                            <p className="text-lg text-[#EEEEEE]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam unde mollitia explicabo incidunt ipsa error </p>
+                            <p className="text-lg text-[#EEEEEE] mb-8">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam unde mollitia explicabo incidunt ipsa error </p>
 
-                            <button className="px-6 py-4 bg-[#EFEFEF] rounded-full mt-4">
-                                <Link href='/collections' className="text-black font-bold cursor-pointer">Explore the Collections</Link>
-                            </button>
+                            
+                            <Link href='/collections' className="text-black font-bold cursor-pointer px-6 py-4 bg-[#EFEFEF] rounded-full mt-4">Explore the Collections</Link>
+                            
                         </div>
 
                         <div className="space-x-12">

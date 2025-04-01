@@ -31,7 +31,7 @@ export default function Home() {
   //     setIsModalOpen((prev) => !prev)
   //     console.log(`Mudou o estado para: ${isModalOpen}`)
   // }
-  
+
   return (
     <>
       <div className="relative max-w-9/10 mx-auto px-2">

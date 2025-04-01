@@ -59,6 +59,7 @@ const Footer = () => {
                         </ul>
                     </div>
                 </div>  
+                    <p className="text-white text-center">Criado por Leandro Alves &#169;</p>
             </div>
         </footer>
     )
