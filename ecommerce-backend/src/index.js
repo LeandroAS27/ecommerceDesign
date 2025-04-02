@@ -2,13 +2,13 @@ import express from 'express'
 import cors from 'cors'
 import multer from 'multer'
 import path from 'path'
-import { conexao } from '../server.js'
 const app = express()
 
 //routes
 import productsRoute from './routes/productsRoute.js'
 import usersRoute from './routes/usersRoute.js'
 import typeProductsRoute from './routes/typeProductsRoute.js'
+import checkoutRoute from './routes/checkoutRoute.js'
 
 //para o express ler json
 app.use(express.json({limit: '10mb'}))
@@ -41,5 +41,6 @@ app.get('/', (req, res) => {
 app.use(productsRoute)
 app.use(usersRoute)
 app.use(typeProductsRoute)
+app.use(checkoutRoute)
 
 export default app
