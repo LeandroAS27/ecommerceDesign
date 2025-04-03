@@ -41,39 +41,67 @@ router.post('/checkout/add-item', async(req, res) => {
 
         //funcao auxiliar para inserir o item e atualizar o total do pedido
         const inserirItemEAtualizarPedido = (orderId) => {
-            const insertItemQuery = "INSERT INTO order_items (order_id, product_id, quantity, subtotal) VALUES (?, ?, ?, ?)";
-            conexao.query(insertItemQuery, [orderId, productId, quantity, subtotal], (err, result) => {
-                if(err){
-                    console.error("Erro ao inserir item do pedido:", err);
-                    return res.status(500).json({message: "Erro ao inserir item do pedido"});
-                }
-                //apos inserir o item, atualize o total do pedido
-                const updateTotalQuery = `
-                    UPDATE orders
-                    SET total_price = (SELECT SUM(subtotal) FROM order_items WHERE order_id = ?)
-                    WHERE idorders = ?
-                `;
-                conexao.query(updateTotalQuery, [orderId, orderId], (err, result) => {
-                    if(err){
-                        console.error("Erro ao inserir item do pedido:", err);
-                        return res.status(500).json({message: "Erro ao inserir item do pedido"});
-                    }
+            const checkItemQuery = "SELECT * FROM order_items WHERE order_id = ? AND product_id = ?";
 
-                    const getOrderQuery = "SELECT * FROM orders WHERE idorders = ?";
-                    conexao.query(getOrderQuery, [orderId], (err, orderResult) => {
+            conexao.query(checkItemQuery, [orderId, productId], (err, items) => {
+                if(err){
+                    console.error("Erro ao verificar item do pedido:", err)
+                    return res.status(500).json({message: "Erro ao verificar item no pedido"});
+                }
+
+                if(items.length > 0){
+                    const existingItem = Array.isArray(items) ? items[0] : items;
+                    const newQuantity = existingItem.quantity + quantity;
+                    const newSubtotal = price * newQuantity
+                    const updateItemQuery = "UPDATE order_items SET quantity = ?, subtotal = ? WHERE order_id = ? AND product_id = ?";
+                    conexao.query(updateItemQuery, [newQuantity, newSubtotal, orderId, productId], (err, result) => {
                         if(err){
-                            console.error("Erro ao buscar pedido atualizado:", err);
-                            return res.status(500).json({message: "Erro ao buscar pedido atualizado"});
+                            console.error("Erro ao atualizar o item do pedido:", err)
+                            return res.status(500).json({message: "Erro ao atualizar item do pedido"});
                         }
-                        res.status(200).json({
-                            message: "Item adicionado e pedido atualizado com sucesso",
-                            order: orderResult[0]
-                        });
+                        atualizarTotalDoPedido(orderId);
+                    })
+                }else{
+                    const insertItemQuery = "INSERT INTO order_items (order_id, product_id, quantity, subtotal) VALUES (?, ?, ?, ?)";
+                    conexao.query(insertItemQuery, [orderId, productId, quantity, subtotal], (err, result) => {
+                        if(err){
+                            console.error("Erro ao inserir item do pedido:", err)
+                            return res.status(500).json({message: "Erro ao inserir item do pedido."});
+                        }
+                        atualizarTotalDoPedido(orderId);
                     });
-                });
-            });
+                }
+            })
         };
 
+        const atualizarTotalDoPedido = (orderId) => {
+            const updateTotalQuery = `
+                UPDATE orders
+                SET total_price = (
+                    SELECT SUM(subtotal) FROM order_items WHERE order_id = ?
+                )
+                WHERE idorders = ?
+            `;
+
+            conexao.query(updateTotalQuery, [orderId, orderId], (err, result) => {
+                if(err){
+                    console.error("Erro ao atualizar total do pedido:", err);
+                    return res.status(500).json({message: "Erro ao atualizar total do pedido"});
+                }
+
+                const getOrderQuery = "SELECT * FROM orders WHERE idorders = ?";
+                conexao.query(getOrderQuery, [orderId], (err, result) => {
+                    if(err){
+                        console.error("Erro ao buscar pedido atualizado:", err)
+                        res.status(500).json({message: "Erro ao buscar pedido atualizado"});
+                    }
+                    res.status(200).json({
+                        message: "Item adicionado e pedido atualizado com sucesso",
+                        order: result[0]
+                    })
+                })
+            })
+        }
     } catch (error){
         console.error("Erro no endpoint de checkout", error)
         res.status(500).json({message: "Erro interno do servidor"});
