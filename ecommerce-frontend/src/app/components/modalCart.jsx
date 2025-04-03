@@ -28,9 +28,7 @@ const ModalCart = ({ onClose, isOpen }) => {
     const handleRemoveFromCart = (idproducts) => {
         dispatch(removeFromCart(idproducts));
     }
-
-    console.log(cart)
-
+    
     return(
         <div className={`fixed inset-0 flex justify-end z-50 transition-opacity duration-300 ${isOpen ? "opacity-100 visible pointer-events-auto" : "opacity-0 invisible pointer-events-none"}`}>
             <div className="absolute inset-0 bg-black opacity-50 transition-opacity duration-300" onClick={onClose}/>

@@ -6,7 +6,7 @@ import Header from "../../components/header";
 import ModalCart from "../../components/modalCart";
 
 //react
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import IMask from "imask";
@@ -29,7 +29,46 @@ const ProductPage = ({ params }) => {
     const [SelectedProduct, setSelectedProduct] = useState({})
     const [value, setValue] = useState(0)
     const inputRef = useRef(null);
-    
+    const router = useRouter()
+    const [userInfo, setUserInfo] = useState({})
+
+    const getUserInfo = () => {
+        const user = localStorage.getItem('user')
+        if(user){
+            setUserInfo(JSON.parse(user))
+        }
+    }
+
+    console.log(value)
+
+    useEffect(() => {
+        getUserInfo()
+    }, [])
+
+    const sendToCheckout = async() => {
+        try {
+            const response = await fetch('http://localhost:5000/checkout/add-item', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    userId: userInfo.user.id,
+                    productId: SelectedProduct.idproducts,
+                    quantity: value,
+                    price: SelectedProduct.price
+                })
+            })
+            const data = await response.json();
+            if(!response.ok){
+                throw new Error("Erro ao enviar os dados", response.status)
+            }
+            router.push('/checkout')
+        } catch (error) {
+            console.log("Erro ao adicionar item ao carrinho", error);
+        }
+    }
+
     const handleQuantityIncrement = () => {
         setValue((prev) => prev + 1)
     }  
@@ -82,7 +121,7 @@ const ProductPage = ({ params }) => {
         if(inputRef.current){
             IMask(inputRef.current, {
                 mask: "00000-000",
-                lazy: false
+                lazy: false,
             })
         }
     }, [])
@@ -100,7 +139,7 @@ const ProductPage = ({ params }) => {
                         <div className="w-full max-w-md aspect-square relative mx-auto">
                             <Image 
                             src={SelectedProduct.image ? SelectedProduct.image : noImage} 
-                            alt={SelectedProduct.name}
+                            alt={SelectedProduct.name ? SelectedProduct.name : 'Imagem do produto'}
                             fill
                             className="object-cover rounded-lg shadow-md"
                             />
@@ -168,10 +207,9 @@ const ProductPage = ({ params }) => {
                             <div className="flex flex-col space-y-2">
                                 <button 
                                 className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-2 cursor-pointer"
+                                onClick={sendToCheckout}
                                 >
-                                    <Link href='/checkout'> {/* aqui vai enviar o produto para o checkout */}
-                                        Comprar Agora
-                                    </Link>
+                                    Comprar Agora
                                 </button>
                                 <button 
                                 className="bg-[#333333] text-white px-4 py-2 rounded-lg mt-2 cursor-pointer"
