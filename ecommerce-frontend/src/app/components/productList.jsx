@@ -13,12 +13,14 @@ import Image from 'next/image';
 import like from '../../../public/icons8-gostar-96.png';
 import liked from '../../../public/icons8-gostar-96 (1).png';
 import noImage from '../../../public/image-no-image.jpg';
+import { useRouter } from 'next/navigation';
 
 const ProductList = ({showAll}) => {
     const dispatch = useDispatch()
     const products = useSelector((state) => state.products.items);
     const [hovered, setHovered] = useState({});
     const favorites = useSelector((state) => state.favorites.favorites)
+    const router = useRouter()
 
     const handleMouseEnter = (id) => {
         setHovered((prevState) => ({...prevState, [id]: true}))
@@ -28,7 +30,11 @@ const ProductList = ({showAll}) => {
         setHovered((prevState) => ({...prevState, [id]: false}))
     }
 
-    
+    const handleBuy = (id, product) => {
+        localStorage.setItem('SelectedProduct', JSON.stringify(product))
+
+        router.push(`/products/${id}`)
+    }
 
     useEffect(() => {
         const fetchProducts = async () =>{
@@ -62,13 +68,14 @@ const ProductList = ({showAll}) => {
                 products.map(product => {
                     const isFavorited = favorites.some((fav) => fav.idproducts === product.idproducts)
                     return(
-                        <div key={product.idproducts} className='relative rounded flex flex-col justify-center items-center'>
+                        <div key={product.idproducts} className='relative rounded flex flex-col justify-center items-center space-y-2'>
                             <Image 
-                            src={`http://localhost:5000/media/${product.image_url}`} //preciso configurar o multer e subir imagens no servidor de acordo com o produto
+                            src={`http://localhost:5000/media/${product.image_url}`}
                             alt={product.name} 
-                            className='w-full max-w-[300px] max-h-[200px] h-auto object-cover'
+                            className='w-full max-h-[200px] h-auto object-cover rounded cursor-pointer'
                             width={200}
                             height={100}
+                            onClick={() => handleBuy(product.idproducts, product)}
                             />
                             <h2 className='text-lg font-bold'>{product.name}</h2>
                             <p className='text-gray-700'>R$ {product.price.toFixed(2)}</p>
@@ -77,7 +84,7 @@ const ProductList = ({showAll}) => {
                             alt='Botao de gostar'
                             width={46}
                             height={32}
-                            className='absolute top-4 right-4 bg-[#EFEFEF]/50 rounded-full p-2 cursor-pointer'
+                            className='absolute top-4 right-4 bg-[#EFEFEF]/50 rounded-full p-2 hover:scale-110 transition duration-300 cursor-pointer'
                             onClick={() => handleFavorite(product)}
                             />
                         </div>

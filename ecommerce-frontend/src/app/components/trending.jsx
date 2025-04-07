@@ -7,7 +7,7 @@ const Trending = () => {
     const [showAll, setShowAll] = useState(false);
 
     const handleShowAll = () => {
-        setShowAll(true)
+        setShowAll(!showAll)
     }
 
     return(

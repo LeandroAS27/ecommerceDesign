@@ -30,6 +30,7 @@ const ModalCart = ({ onClose, isOpen }) => {
         getUserInfo()
     }, [])
 
+    console.log(cart)
     
     const handleDecrease = (idproducts) => {
         dispatch(decreaseQuantityFromCart(idproducts))
@@ -47,6 +48,7 @@ const ModalCart = ({ onClose, isOpen }) => {
                     userId: userInfo.user.id,
                     items: cart.map(item => ({
                         productId: item.idproducts,
+                        image: item.image_url,
                         quantity: item.quantity,
                         price: item.price
                     })) 
@@ -78,11 +80,14 @@ const ModalCart = ({ onClose, isOpen }) => {
             
             {/* modal lateral */}
 
-            <div className={`relative bg-[#F7F7F7] w-96 h-full shadow-2xl p-6 transform transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
+            <div 
+            className={`relative bg-[#F7F7F7] w-96 h-full shadow-2xl p-6 transform transition-transform duration-300 ease-in-out 
+            ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+            >
                 <h2 className="text-2xl font-bold text-gray-800">Seu carrinho</h2>
                 <button 
                 onClick={onClose}
-                className="absolute top-0 right-4 mt-4 px-4 py-2 bg-red-500 hover:bg-red-800 text-white rounded"
+                className={`absolute top-0 right-4 mt-4 px-4 py-2 bg-red-500 hover:bg-red-800 text-white rounded cursor-pointer`}
                 >
                     Fechar
                 </button>
@@ -91,9 +96,11 @@ const ModalCart = ({ onClose, isOpen }) => {
                     {cart.length > 0 ? (
                         cart.map((item) => (
                             <div key={item.idproducts} className="flex items-center p-3 border rounded-lg shadow-sm mt-6">
-                                <div className="relative w-16 h-16 flex-shrink-0">
+                                <div className="relative w-16 h-24 flex-shrink-0">
                                     <Image 
-                                    src={item.imageURL ? item.imageURL : noImage} 
+                                    src={`http://localhost:5000/media/${item.image_url}`}
+                                    width={200}
+                                    height={100}
                                     alt={item.name}
                                     className="object-cover rounded-md"
                                     />

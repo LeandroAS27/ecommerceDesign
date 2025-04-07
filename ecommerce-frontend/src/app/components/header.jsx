@@ -92,7 +92,14 @@ const Header = ({onCartClick}) => {
                     </div>
 
                     <div className="relative pr-4 py-4">
-                        <Image src={cartIcon} alt="Icone de um carrinho" width={24} height={24} onClick={onCartClick} className="cursor-pointer"/>
+                        <Image 
+                        src={cartIcon} 
+                        alt="Icone de um carrinho" 
+                        width={24} 
+                        height={24} 
+                        onClick={onCartClick} 
+                        className="cursor-pointer"
+                        />
                         <div className="absolute top-0 right-0 bg-black w-5 h-5 px-2 py-2 flex items-center justify-center text-xs rounded-full">
                             <p className="text-white font-bold">{cart.length}</p>
                         </div>

@@ -14,23 +14,32 @@ import { toggleCart } from "./redux/modalSlice";
 
 
 //react
-import Image from "next/image";
-import { useState } from "react";
+import { useEffect } from "react";
+
 
 export default function Home() {
-  // const [isModalOpen, setIsModalOpen] = useState(false)
   const dispatch = useDispatch();
   const isModalOpen = useSelector((state) => state.modalCart.isModalOpen)
 
+
   const handleCartModal = () => {
     dispatch(toggleCart())
-    console.log(`Estado do modal agora é ${!isModalOpen}`)
   }
 
-  // const handleCartModal = () => {
-  //     setIsModalOpen((prev) => !prev)
-  //     console.log(`Mudou o estado para: ${isModalOpen}`)
-  // }
+  useEffect(() => {
+    if(typeof window !== 'undefined'){
+      import('scrollreveal').then((ScrollReveal) => {
+        ScrollReveal.default().reveal('.reveal', {
+          distance: '40px',
+          duration: 1000,
+          easing: 'ease-in-out',
+          origin: 'bottom',
+          interval: 200,
+          reset: false
+        });
+      })
+    }
+  }, [])
 
   return (
     <>
@@ -42,15 +51,15 @@ export default function Home() {
         </header>
 
         <main className="relative flex flex-col items-center w-full mt-16">
-          <section className="w-full">
+          <section className="w-full reveal">
             <FindLook/>
           </section>
 
-          <section className="w-full">
+          <section className="w-full reveal">
             <Trending/>
           </section>
 
-          <section className="w-full">
+          <section className="w-full reveal">
             <Carousel/>
           </section>
         </main>
