@@ -108,7 +108,7 @@ router.post('/checkout/add-item', async(req, res) => {
     }
 });
 
-const queryPromise = (sql, params) => {
+export const queryPromise = (sql, params) => {
     return new Promise((resolve, reject) => {
         conexao.query(sql, params, (error, results) => {
             if(error) return reject(error);
@@ -150,5 +150,29 @@ router.get('/checkout/:userId', async(req, res) => {
     }
 })
 
+router.delete('/checkout/:userId', async(req, res) => {
+    const {userId, productId} = req.body
+
+    console.log(productId)
+
+    const deleteItemQuery = "DELETE order_items FROM order_items JOIN orders ON order_items.order_id = orders.idorders WHERE orders.user_id = ? AND order_items.product_id = ? AND orders.status = 'pending'"
+
+    conexao.query(deleteItemQuery, [userId, productId], (err, result) => {
+        if(err){
+            console.error("Erro ao deletar o pedido:", err);
+            return res.status(500).json({message: "Erro ao deletar o pedido"});
+        }
+    })
+
+    const updateTotalQuery = "UPDATE orders SET total_price = (SELECT COALESCE(SUM(order_items.subtotal), 0) FROM order_items WHERE order_items.order_id = orders.idorders) WHERE orders.user_id = ? AND orders.status = 'pending'"
+
+    conexao.query(updateTotalQuery, [userId], (err, result) => {
+        if(err){
+            console.error("Erro ao atualizar o total do pedido:", err);
+            return res.status(500).json({message: "Erro ao atualizar o total do pedido"});
+        }
+        res.status(200).json({message: 'sucesso ao remover o produto e atualizar o pedido', result})
+    })
+})
 
 export default router
