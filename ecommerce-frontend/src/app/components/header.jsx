@@ -1,15 +1,24 @@
 "use client"
 
+//images
 import Image from "next/image"
 import like from '../../../public/icons8-gostar-96.png'
-import cart from '../../../public/icons8-carrinho.png'
+import cartIcon from '../../../public/icons8-carrinho.png'
 import person from '../../../public/icons8-pessoa.png'
+
+//react
 import Link from "next/link"
 import { useState } from "react"
+
+//redux
+import { useDispatch, useSelector } from "react-redux"
+
 
 const Header = ({onCartClick}) => {
     const [isOpen, setIsOpen] = useState(false)
     const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const dispatch = useDispatch()
+    const cart = useSelector(state => state.cart.cart)
 
     useState(() => {
         if(typeof window !== 'undefined'){
@@ -45,7 +54,7 @@ const Header = ({onCartClick}) => {
                     </Link>
                 </nav>
 
-                <div className="flex space-x-4">
+                <div className="flex space-x-4 items-center">
                     <Link href="/favorites">                    
                         <Image src={like} alt="Icone de coracao" width={24} height={24}/>
                     </Link>
@@ -60,6 +69,7 @@ const Header = ({onCartClick}) => {
                         alt="Icone de uma pessoa" 
                         width={24} 
                         height={24}
+                        className=""
                         />
 
                         {isOpen && (
@@ -81,11 +91,12 @@ const Header = ({onCartClick}) => {
                         )}
                     </div>
 
-                    {/* <Link href="/auth/login">
-                        <Image src={person} alt="Icone de uma pessoa" width={24} height={24}/>
-                    </Link> */}
-
-                    <Image src={cart} alt="Icone de um carrinho" width={24} height={24} onClick={onCartClick} className="cursor-pointer"/>
+                    <div className="relative pr-4 py-4">
+                        <Image src={cartIcon} alt="Icone de um carrinho" width={24} height={24} onClick={onCartClick} className="cursor-pointer"/>
+                        <div className="absolute top-0 right-0 bg-black w-5 h-5 px-2 py-2 flex items-center justify-center text-xs rounded-full">
+                            <p className="text-white font-bold">{cart.length}</p>
+                        </div>
+                    </div>
                 </div>
             </header>
         </>

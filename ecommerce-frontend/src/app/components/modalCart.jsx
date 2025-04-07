@@ -1,12 +1,12 @@
 "use client"
 
 //react
-import { useState } from "react";
-import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, increaseQuantityFromCart, decreaseQuantityFromCart, removeFromCart, updateCartItem } from "../redux/cartSlice";
+import { increaseQuantityFromCart, decreaseQuantityFromCart, removeFromCart } from "../redux/cartSlice";
 
 //images
 import Image from "next/image";
@@ -16,9 +16,52 @@ import thrash from '../../../public/lixo.png';
 const ModalCart = ({ onClose, isOpen }) => {
     const dispatch = useDispatch();
     const cart = useSelector(state => state.cart.cart)
+    const router = useRouter();
+    const [userInfo, setUserInfo] = useState({});
+
+    const getUserInfo = () => {
+        const user = localStorage.getItem('user')
+        if(user){
+            setUserInfo(JSON.parse(user))
+        }
+    }
+
+    useEffect(() => {
+        getUserInfo()
+    }, [])
+
     
     const handleDecrease = (idproducts) => {
         dispatch(decreaseQuantityFromCart(idproducts))
+    }
+
+    const sendToCheckout = async() => {
+        console.log('botao funcionou')
+        try {
+            const response = await fetch('http://localhost:5000/checkout/add-item/cart', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    userId: userInfo.user.id,
+                    items: cart.map(item => ({
+                        productId: item.idproducts,
+                        quantity: item.quantity,
+                        price: item.price
+                    })) 
+                })
+            })
+            if(!response.ok){
+                throw new Error("Erro ao enviar os dados", response.status)
+            }
+            const data = await response.json();
+            console.log('reposta do backend', data)
+
+            router.push('/checkout')
+        } catch (error) {
+            console.log("Erro ao adicionar item ao carrinho", error);
+        }
     }
 
     const handleIncrease = (idproducts) => {
@@ -35,7 +78,7 @@ const ModalCart = ({ onClose, isOpen }) => {
             
             {/* modal lateral */}
 
-            <div className={`relative bg-[#EEEEEE] w-96 h-full shadow-2xl p-6 transform transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
+            <div className={`relative bg-[#F7F7F7] w-96 h-full shadow-2xl p-6 transform transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
                 <h2 className="text-2xl font-bold text-gray-800">Seu carrinho</h2>
                 <button 
                 onClick={onClose}
@@ -96,10 +139,11 @@ const ModalCart = ({ onClose, isOpen }) => {
                 </div>
                 {cart.length > 0 && (
                     <div className="mt-6">
-                    <button className="w-full py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition cursor-pointer">
-                        <Link href='/checkout'> {/* aqui vai enviar os produtos para o checkout */}
-                            Finalizar Compra
-                        </Link>
+                    <button 
+                    className="w-full py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition cursor-pointer" 
+                    onClick={sendToCheckout}
+                    >
+                        Finalizar Compra
                     </button>
                     </div>
                 )}

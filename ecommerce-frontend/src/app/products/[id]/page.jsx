@@ -138,7 +138,7 @@ const ProductPage = ({ params }) => {
                     <section className="flex-1 flex flex-col gap-4 p-4 max-w-2xl">
                         <div className="w-full max-w-md aspect-square relative mx-auto">
                             <Image 
-                            src={SelectedProduct.image ? SelectedProduct.image : noImage} 
+                            src={`http://localhost:5000/media/${SelectedProduct.image_url}`} 
                             alt={SelectedProduct.name ? SelectedProduct.name : 'Imagem do produto'}
                             fill
                             className="object-cover rounded-lg shadow-md"

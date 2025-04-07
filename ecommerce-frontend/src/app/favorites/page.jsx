@@ -52,7 +52,7 @@ const Favorites = () => {
                         {favorites.length > 0 ? (
                             favorites.map((fav) => (
                                 <div key={fav.idproducts} className="flex flex-col items-center bg-[#F5F5F5] shadow-md rounded-lg p-4 text-black">
-                                    <Image src={fav.image_url ? fav.image_url : noImage} width={32} height={32}/>
+                                    <Image src={`http://localhost:5000/media/${fav.image_url}`} width={200} height={100}/>
                                     <p className="mt-4 text-lg">{fav.name}</p>
                                     <p className="mt-2 text-lg font-semibold">R$ {fav.price.toFixed(2)}</p>
                                     <button className="px-4 py-2 rounded-lg bg-[#7886C7] hover:bg-[#2D336B] transform transition duration-300 text-[#000] cursor-pointer"

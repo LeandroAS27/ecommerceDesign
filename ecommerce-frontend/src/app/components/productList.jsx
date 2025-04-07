@@ -62,13 +62,13 @@ const ProductList = ({showAll}) => {
                 products.map(product => {
                     const isFavorited = favorites.some((fav) => fav.idproducts === product.idproducts)
                     return(
-                        <div key={product.idproducts} className='relative rounded'>
+                        <div key={product.idproducts} className='relative rounded flex flex-col justify-center items-center'>
                             <Image 
-                            src={product.image_url ? product.image_url : noImage} //preciso configurar o multer e subir imagens no servidor de acordo com o produto
+                            src={`http://localhost:5000/media/${product.image_url}`} //preciso configurar o multer e subir imagens no servidor de acordo com o produto
                             alt={product.name} 
-                            className='w-full h-48 object-cover'
-                            width={32}
-                            height={32}
+                            className='w-full max-w-[300px] max-h-[200px] h-auto object-cover'
+                            width={200}
+                            height={100}
                             />
                             <h2 className='text-lg font-bold'>{product.name}</h2>
                             <p className='text-gray-700'>R$ {product.price.toFixed(2)}</p>

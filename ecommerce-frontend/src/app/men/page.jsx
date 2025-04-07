@@ -166,9 +166,11 @@ const Men = () => {
                                         className="border shadow-lg rounded flex flex-col items-center justify-center p-8"
                                         >
                                             <Image 
-                                            src={product.image ? product.image : noImage} 
+                                            src={`http://localhost:5000/media/${product.image_url}`} 
                                             alt={product.name} 
                                             className="rounded"
+                                            width={200}
+                                            height={100}
                                             /> 
                                             <h1 className="text-2xl text-[#000] font-semibold font-title mb-2">{product.name}</h1>
                                             <p className="text-lg mb-2 text-gray-700 font-sans">R$ {product.price.toFixed(2)}</p>
