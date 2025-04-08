@@ -36,7 +36,7 @@ const Header = ({onCartClick}) => {
 
     return(
         <>
-            <header className="flex w-full justify-between my-8 font-title items-center">
+            <header className="flex flex-col md:flex-row w-full justify-between my-8 font-title items-center space-y-2 md:space-y-0">
                 <h1 className="text-2xl font-bold"><Link href='/'>EcommerceDesign</Link></h1>
 
                 <nav className="flex space-x-4 list-none">
@@ -63,6 +63,7 @@ const Header = ({onCartClick}) => {
                     className="relative" 
                     onMouseEnter={() => setIsOpen(() => setIsOpen(true))} 
                     onMouseLeave={() => setIsOpen(false)}
+                    onClick={() => setIsOpen(true)}
                     >
                         <Image 
                         src={person} 

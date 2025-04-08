@@ -18,6 +18,9 @@ import { useRouter } from "next/navigation";
 import noImage from '../../../public/image-no-image.jpg';
 import ModalCart from "../components/modalCart";
 
+//framer motion
+import { motion } from 'motion/react'
+
 const Women = () => {
     const dispatch = useDispatch();
     const products = useSelector(state => state.products.items)
@@ -99,15 +102,15 @@ const Women = () => {
             <main className="w-full h-full flex">
                 {/* filter section */}
                 <section className="flex flex-1 w-24 h-full mr-2"> 
-                    <div className="w-full rounded flex flex-col items-center">
+                    <div className="w-full rounded flex flex-col items-center justify-between">
                         <div className="rounded my-8 bg-[#F5F5F5] w-full max-w-2/3 p-6 shadow-md">   
                             <div className="flex space-x-4 items-center justify-between">
-                                <h2 className="text-lg font-semibold mb-4">Ordernar por</h2>
+                                <h2 className="text-lg font-semibold mb-4">Ordenar por</h2>
 
 
                                 <select className="bg-white rounded-md p-2 mb-4" value={value} onChange={handleOptionSelected}> 
-                                    <option value="lowest">Lowest Price</option>
-                                    <option value="highest">Highest Price</option>
+                                    <option value="lowest">Menor preço</option>
+                                    <option value="highest">Maior preço</option>
                                     <option value="a-z">A - Z</option>
                                     <option value="z-a">Z - A</option>
                                 </select>
@@ -127,16 +130,16 @@ const Women = () => {
 
                         <div className="rounded bg-[#F5F5F5] p-6 shadow-md w-full max-w-2/3">
                             <div className="border-b mb-4">
-                                <h2 className="text-lg font-semibold mb-4">Categories</h2>
+                                <h2 className="text-lg font-semibold mb-4">Categorias</h2>
                             </div>
 
                             <ul className="space-y-2">
                                 <li className="cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition" onClick={() => handleFilterClick('shirt')}>
-                                    Shirts
+                                    Camisetas
                                 </li>
 
                                 <li className="cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition" onClick={() => handleFilterClick('pants')}>
-                                    Pants
+                                    Calças
                                 </li>
 
                                 <li className="cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition" onClick={() => handleFilterClick('accessories')}>
@@ -144,7 +147,7 @@ const Women = () => {
                                 </li>
 
                                 <li className="cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition" onClick={() => handleFilterClick('blouse')}>
-                                    Blouse
+                                    Blusas
                                 </li>
                             </ul>
                         </div>
@@ -157,16 +160,21 @@ const Women = () => {
                         <div className="grid grid-cols-3 gap-4">
                             {products.length > 0 && (
                                 products.map((product) => (
-                                    <div 
+                                    <motion.div 
                                     key={product.idproducts} 
-                                    className="border shadow-lg rounded flex flex-col items-center justify-center p-8"
+                                    className="shadow-md rounded bg-[#FAFAFA] flex flex-col items-center justify-center p-8 w-full h-full hover:scale-105 transform transition duration-300"
+                                    initial={{opacity: 0, scale: 0}}
+                                    animate={{opacity: 1, scale: 1}}
+                                    transition={{
+                                        duration: 0.2,
+                                    }}
                                     >
                                         <Image 
                                         src={`http://localhost:5000/media/${product.image_url}`} 
                                         alt={product.name} 
                                         className="rounded"
                                         width={200}
-                                        height={100}
+                                        height={200}
                                         /> 
                                         <h1 className="text-2xl text-[#000] font-semibold font-title mb-2">{product.name}</h1>
                                         <p className="text-lg mb-2 text-gray-700 font-sans">R$ {product.price.toFixed(2)}</p>
@@ -176,7 +184,7 @@ const Women = () => {
                                         >
                                             Comprar
                                         </button>
-                                    </div>
+                                    </motion.div>
                                 ))
                             )}
                         </div>

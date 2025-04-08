@@ -19,7 +19,7 @@ import { incrementQuantity, decrementQuantity } from "../../redux/productSlice";
 
 //images
 import Image from "next/image";
-import noImage from '../../../../public/image-no-image.jpg';
+// import noImage from '../../../../public/image-no-image.jpg';
 
 const ProductPage = ({ params }) => {
     const dispatch = useDispatch();
@@ -146,7 +146,7 @@ const ProductPage = ({ params }) => {
                         </div>
 
                         <div className="bg-[#F5F5F5] rounded-lg w-full p-8 text-black">
-                            <h1 className="mb-4 text-xl">Description</h1>
+                            <h1 className="mb-4 text-xl">Descrição</h1>
                             <p>{SelectedProduct.description}</p>
                             <p>Tamanho da Camiseta:</p>
                             <p>P: 00 x 00 cm</p>
@@ -159,17 +159,17 @@ const ProductPage = ({ params }) => {
                     {/* coluna direita: informacoes produto */}
                     <section className="flex-1 space-y-6 p-4 max-w-xl">
                         <div className="relative bg-[#F5F5F5] rounded w-full p-8">
-                            <div className="absolute left-4 top-4 bg-black p-2">
+                            <div className="absolute left-4 top-4 bg-black p-2 rounded">
                                 <p className="text-white text-sm">-21%</p>
                             </div>
 
-                            <h1 className="text-3xl font-bold font-title mt-8 mb-4">{SelectedProduct.name}</h1>
+                            <h1 className="text-3xl font-bold font-title mt-8 mb-2">{SelectedProduct.name}</h1>
                             <p className="text-black">{SelectedProduct.description}</p>
-                            <p className="underline text-blue-500 mb-4 cursor-pointer">More information</p>
+                            <p className="underline text-blue-500 mb-4 cursor-pointer">Mais informações</p>
 
                             <div className="space-y-2 text-black">
                                 <p className="space-x-2">A partir de <span className="font-bold text-2xl">R$ {SelectedProduct?.price ? SelectedProduct.price.toFixed(2) : "0.00"}</span> <span className="line-through">R$ {SelectedProduct?.price ? (SelectedProduct.price + 10).toFixed(2) : "0.00"}</span></p>
-                                <p>R$ {SelectedProduct?.price ? (SelectedProduct.price - 5).toFixed(2) : "0.00"} in cash</p>
+                                <p>R$ {SelectedProduct?.price ? (SelectedProduct.price - 5).toFixed(2) : "0.00"} no pix</p>
                             </div>
 
                             <div className="w-full border-t mt-4"/>
@@ -183,7 +183,7 @@ const ProductPage = ({ params }) => {
                                     <p className="text-gray-700">Quantidade:</p>
                                 <div className="bg-[#FFFFFF] p-2 rounded-lg">
                                     <span 
-                                    className="px-4 py-2 hover:bg-gray-200 rounded focus:outline-none cursor-pointer"
+                                    className="px-4 py-2 hover:bg-gray-200 transition duration-300 ease-in-out rounded focus:outline-none cursor-pointer"
                                     onClick={handleQuantityDecrement}
                                     >
                                         -
@@ -191,12 +191,11 @@ const ProductPage = ({ params }) => {
                                     <input 
                                     type="number" 
                                     className="w-16 text-center bg-transparent rounded focus:outline-none focus:ring-2 focus:ring-blue-400 text-center appearance-none"
-                                    defaultValue={value}
                                     value={value}
                                     onChange={() => handleChangeQuantity}
                                     />
                                     <span 
-                                    className="px-4 py-2 hover:bg-gray-200 rounded focus:outline-none cursor-pointer" 
+                                    className="px-4 py-2 hover:bg-gray-200 transition duration-300 ease-in-out rounded focus:outline-none cursor-pointer" 
                                     onClick={handleQuantityIncrement}
                                     > 
                                         +
@@ -206,13 +205,13 @@ const ProductPage = ({ params }) => {
 
                             <div className="flex flex-col space-y-2">
                                 <button 
-                                className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-2 cursor-pointer"
+                                className="bg-blue-500 hover:bg-blue-600 transition duration-300 ease-in-out text-white px-4 py-2 rounded-lg mt-2 cursor-pointer"
                                 onClick={sendToCheckout}
                                 >
                                     Comprar Agora
                                 </button>
                                 <button 
-                                className="bg-[#333333] text-white px-4 py-2 rounded-lg mt-2 cursor-pointer"
+                                className="bg-[#333333] hover:bg-[#212121] transition duration-300 ease-in-out text-white px-4 py-2 rounded-lg mt-2 cursor-pointer"
                                 onClick={handleAddToCart}
                                 >
                                     Adicionar ao Carrinho
@@ -236,7 +235,7 @@ const ProductPage = ({ params }) => {
 
                                 <Link href='https://buscacepinter.correios.com.br/app/endereco/index.php' legacyBehavior>
                                     <a target="_blank" rel="noopener noreferrer" className="underline text-blue-500 cursor-pointer">
-                                        Don't know my Zip-Code
+                                        Não sei meu CEP
                                     </a>
                                 </Link>
                             </div>

@@ -19,6 +19,7 @@ import noImage from '../../../public/image-no-image.jpg';
 import ModalCart from "../components/modalCart";
 import person from '../../../public/icons8-pessoa.png';
 import box from '../../../public/box.png';
+import information from '../../../public/icons8-informações-96.png';
 
 const Profile = () => {
     const dispatch = useDispatch();
@@ -86,7 +87,7 @@ const Profile = () => {
 
                 <main className="w-full h-dvh flex">    
                     <div className="w-full flex ">
-                        <div className="w-full max-w-2/4 flex">
+                        <div className="w-full flex">
                             <nav className="w-1/3 border-r p-4">
                                 <ul className="space-y-4">
                                     <li className="flex space-x-2 border-b items-center p-2 cursor-pointer" onClick={handleMyProfileDetails}>
@@ -129,8 +130,8 @@ const Profile = () => {
                             {/* area de conteudo dinamico */}
                             {activeView === 'profile' && userActive ? (
                                 <section className="w-2/3 p-6">
-                                    <h2 className="text-xl mb-8">Dados do usuario</h2>
-                                    <div className="bg-gray-300 w-full border rounded-lg shadow-lg flex flex-col p-6">
+                                    <h2 className="text-xl mb-8">Dados do usuário</h2>
+                                    <div className="w-full rounded-lg shadow-md border flex flex-col p-6">
                                         <p>Nome: {userActive.user.name}</p>
                                         <p>Email: {userActive.user.email}</p>
                                     </div>
@@ -160,7 +161,18 @@ const Profile = () => {
                                     </table>
                                 </section>
                             ) : ( 
-                                <p>content</p> 
+                                <div className="w-full h-full flex justify-center items-center">
+                                    <div className="flex flex-col justify-center items-center">
+                                        <Image 
+                                        src={information} 
+                                        alt="Icone de informacao" 
+                                        height={96} 
+                                        width={96}
+                                        className=""
+                                        />
+                                        <p className="text-lg text-black">Clique nos icones a esquerda para ver informações do seu perfil ou pedido</p>
+                                    </div>
+                                </div>
                             )}
                         </div>
                     </div>

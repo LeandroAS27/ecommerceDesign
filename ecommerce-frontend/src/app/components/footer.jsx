@@ -1,10 +1,10 @@
 const Footer = () => {
     return(
-        <footer className="w-full h-96">
-            <div className="w-full h-32 bg-[#1F1F1F] flex justify-between items-center p-8">
+        <footer className="w-full h-80 lg:h-96">
+            <div className="w-full h-32 bg-[#1F1F1F] flex flex-col md:flex-row justify-between items-center p-2 lg:p-8">
                 <div className="flex flex-col">
-                    <h1 className="text-[#EEEEEE] text-4xl">Be your Designer</h1>   
-                    <p className="text-[#F5EDED] text-2xl">Dreams.</p>
+                    <h1 className="text-[#EEEEEE] text-2xl lg:text-4xl">Be your Designer</h1>   
+                    <p className="text-[#F5EDED] text-xl lg:text-2xl">Dreams.</p>
                 </div>
 
                 <div className="flex space-x-4">
@@ -21,9 +21,9 @@ const Footer = () => {
                 </div>
             </div>
             <div className="w-full h-full bg-[#141414]">
-                <div className="grid grid-cols-4 items-center justify-items-center mx-auto gap-8 py-12">
+                <div className="grid grid-cols-2 lg:grid-cols-4 items-center justify-items-center mx-auto gap-8 py-12">
                     {/* Men */}
-                    <div>
+                    <div className="flex flex-col items-center">
                         <h1 className="text-[#EEEEEE] text-2xl mb-4">Men</h1>
 
                         <ul className="text-[#F5EDED]">
@@ -32,7 +32,7 @@ const Footer = () => {
                         </ul>
                     </div>
                     {/* Women */}
-                    <div>
+                    <div className="flex flex-col items-center">
                         <h1 className="text-[#EEEEEE] text-2xl mb-4">Women</h1>
 
                         <ul className="text-[#F5EDED]">
@@ -41,7 +41,7 @@ const Footer = () => {
                         </ul>
                     </div>
                     {/* Kids */}
-                    <div>
+                    <div className="flex flex-col items-center">
                         <h1 className="text-[#EEEEEE] text-2xl mb-4">Kids</h1>
 
                         <ul className="text-[#F5EDED]">
@@ -50,7 +50,7 @@ const Footer = () => {
                         </ul>
                     </div>
                     {/* The Company */}
-                    <div>
+                    <div className="flex flex-col items-center">
                         <h1 className="text-[#EEEEEE] text-2xl mb-4">The Company</h1>
 
                         <ul className="text-[#F5EDED]">

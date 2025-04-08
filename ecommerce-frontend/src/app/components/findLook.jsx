@@ -1,5 +1,4 @@
 "use client"
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import womenCollection from '../../../public/womenCollection.jpg';
@@ -16,14 +15,14 @@ const FindLook = () => {
 
     return(
         <section className="w-full flex flex-col items-center rounded mb-16">
-            <h1 className="text-4xl mb-14">Find Your Look</h1>
+            <h1 className="text-3xl md:text-4xl mb-10 md:mb-14">Find Your Look</h1>
 
-            <div className="grid grid-cols-3 gap-x-8 w-full px-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-x-8 w-full w-full px-2">
                 {images.map((item,index) => (
                     <div key={index}>
                         <Link href={`/${item.label.toLowerCase()}`} passHref>
                             <div 
-                            className="relative w-full h-[600px] cursor-pointer hover:scale-102 transition duration-300 shadow-md"
+                            className="relative w-full h-[400px] sm:h-[450px] md:h-[600px] cursor-pointer hover:scale-102 transition duration-300 shadow-md"
                             >
                                 <Image 
                                 src={item.src} 

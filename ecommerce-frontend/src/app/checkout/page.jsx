@@ -45,7 +45,7 @@ const Checkout = () => {
                 throw new Error("Erro ao deletar o produto", response.status)
             }
             const data = await response.json();
-            setItems(data.items)
+            console.log('sucesos ao deletar o produto', data)
         } catch (error) {
             console.log("Erro ao deletar o produto")
         }
@@ -59,7 +59,6 @@ const Checkout = () => {
                 if(!response.ok){
                     throw new Error(data.message || response.status);
                 }
-                console.log(data)
                 setOrder(data.order)
                 setItems(data.items)
             } catch (error) {
@@ -70,7 +69,7 @@ const Checkout = () => {
         }
 
         if(userId) fetchCheckoutProduct()
-    }, [userId])
+    }, [userId, items])
 
     useEffect(() => {
         if(typeof window !== undefined){
@@ -81,9 +80,6 @@ const Checkout = () => {
             }
         }
     }, [])
-
-    console.log(items)
-    console.log(order)
 
     return(
         <>
@@ -103,7 +99,7 @@ const Checkout = () => {
                                     <div key={item.id} className="flex items-center justify-between gap-4 mb-4 p-4 border-b last:border-b-0">
                                         <div className="relative w-20 h-20 flex-shrink-0">
                                             <Image
-                                                src={noImage}
+                                                src={`http://localhost:5000/media/${item.image_url}`}
                                                 alt={item.name}
                                                 layout="fill"
                                                 className="object-cover rounded-md"
@@ -118,7 +114,7 @@ const Checkout = () => {
 
                                         <div className="flex">
                                             <button 
-                                            className="cursor-pointer py-2 px-4 bg-[#1E3E62] hover:bg-[#03346E] text-white rounded-xl shadow-lg"
+                                            className="cursor-pointer py-2 px-4 bg-blue-500 hover:bg-[#03346E] transition duration-300 ease-in-out text-white rounded-xl shadow-lg font-semibold"
                                             onClick={() => handleDeleteProduct(item.product_id)}
                                             >
                                                 Remover
@@ -153,7 +149,7 @@ const Checkout = () => {
                                 <p className="text-xl font-bold text-gray-800">R$ {order ? order.total_price.toFixed(2) : "0.00"}</p>
                             </div>
 
-                            <button className="w-full py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition">
+                            <button className="w-full py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-[#03346E] transition duration-300 ease-in-out cursor-pointer">
                                 Finalizar Compra
                             </button>
                         </div>

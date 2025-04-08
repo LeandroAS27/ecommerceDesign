@@ -63,16 +63,16 @@ const ProductList = ({showAll}) => {
     console.log(products)
     
     return(
-        <div className='grid grid-cols-3 gap-4'>
+        <div className='grid grid-cols-2 lg:grid-cols-3 gap-4'>
             {products.length > 0 ? (
                 products.map(product => {
                     const isFavorited = favorites.some((fav) => fav.idproducts === product.idproducts)
                     return(
-                        <div key={product.idproducts} className='relative rounded flex flex-col justify-center items-center space-y-2'>
+                        <div key={product.idproducts} className='relative rounded flex flex-col justify-center items-center space-y-2 aspect-[3/3]'>
                             <Image 
                             src={`http://localhost:5000/media/${product.image_url}`}
                             alt={product.name} 
-                            className='w-full max-h-[200px] h-auto object-cover rounded cursor-pointer'
+                            className='w-full h-full object-cover rounded cursor-pointer'
                             width={200}
                             height={100}
                             onClick={() => handleBuy(product.idproducts, product)}
