@@ -37,7 +37,6 @@ const ModalCart = ({ onClose, isOpen }) => {
     }
 
     const sendToCheckout = async() => {
-        console.log('botao funcionou')
         try {
             const response = await fetch('http://localhost:5000/checkout/add-item/cart', {
                 method: "POST",
@@ -106,7 +105,7 @@ const ModalCart = ({ onClose, isOpen }) => {
                                     />
                                 </div>
                                 <div className="flex-1 ml-4">
-                                    <h3 className="text-lg font-semibold text-gray-800">{item.name}</h3>
+                                    <h3 className="text-base md:text-lg font-semibold text-gray-800">{item.name}</h3>
                                     <p className="text-gray-600">R$ {item.price.toFixed(2)}</p>
                                 </div>
 

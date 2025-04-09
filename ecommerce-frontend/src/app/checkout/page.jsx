@@ -18,15 +18,15 @@ import { incrementQuantity, decrementQuantity } from "../redux/cartSlice";
 
 //images
 import Image from "next/image";
-import noImage from '../../../public/image-no-image.jpg';
+// import noImage from '../../../public/image-no-image.jpg';
 
 const Checkout = () => {
     const dispatch = useDispatch();
     const isModalOpen = useSelector(state => state.modalCart.isModalOpen)
     const [order, setOrder] = useState(null);
     const [items, setItems] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [userId, setUserId] = useState(null);
+    const [refresh, setRefresh] = useState(false);
  
     const handleCartModal = () => {
         dispatch(toggleCart())
@@ -44,6 +44,7 @@ const Checkout = () => {
             if(!response.ok){
                 throw new Error("Erro ao deletar o produto", response.status)
             }
+            setRefresh(prev => !prev)
             const data = await response.json();
             console.log('sucesos ao deletar o produto', data)
         } catch (error) {
@@ -63,13 +64,11 @@ const Checkout = () => {
                 setItems(data.items)
             } catch (error) {
                 console.log("Erro ao buscar os dados", error)
-            }finally{
-                setLoading(false)
             }
         }
 
         if(userId) fetchCheckoutProduct()
-    }, [userId, items])
+    }, [userId, refresh])
 
     useEffect(() => {
         if(typeof window !== undefined){
@@ -89,15 +88,15 @@ const Checkout = () => {
                     <ModalCart isOpen={isModalOpen} onClose={handleCartModal}/>
                 </header>
 
-                <main className="w-full h-full flex justify-center space-x-8 mx-auto">
-                    <section className="w-full max-w-2/4">
-                        <div className="w-full border bg-[#FFFFFF] rounded-lg shadow-lg p-6">
-                            <h1 className="text-2xl font-bold text-gray-800 mb-6">Itens do carrinho</h1>
+                <main className="w-full h-full flex flex-col md:flex-row justify-center md:space-x-8 mx-auto mb-4 space-y-4 md:space-y-0 px-4">
+                    <section className="w-full md:max-w-2/4 mb-4 md:mb-0">
+                        <div className="w-full border bg-[#FFFFFF] rounded-lg shadow-lg p-4 sm:p-6">
+                            <h1 className="text-xl sm:text-2xl font-bold text-gray-800 mb-6 text-center md:text-left">Itens do carrinho</h1>
 
                             {items.length > 0 ? (
                                 items.map((item) => (
-                                    <div key={item.id} className="flex items-center justify-between gap-4 mb-4 p-4 border-b last:border-b-0">
-                                        <div className="relative w-20 h-20 flex-shrink-0">
+                                    <div key={item.id} className="flex flex-col md:flex-row sm:items-center justify-between gap-4 mb-4 p-4 border-b last:border-b-0">
+                                        <div className="relative w-full sm:w-20 h-48 sm:h-20 flex-shrink-0 mx-auto sm:mx-0">
                                             <Image
                                                 src={`http://localhost:5000/media/${item.image_url}`}
                                                 alt={item.name}
@@ -106,13 +105,13 @@ const Checkout = () => {
                                             />
                                         </div>
 
-                                        <div className="flex-1">
+                                        <div className="flex-1 text-center sm:text-left">
                                             <h2 className="text-lg font-semibold text-gray-700">{item.name}</h2>
                                             <p className="text-gray-600">Quantidade: {item.quantity}</p>
                                             <p className="text-gray-600">Subtotal: R$ {item.subtotal.toFixed(2)}</p>
                                         </div>
 
-                                        <div className="flex">
+                                        <div className="flex justify-center sm:justify-end">
                                             <button 
                                             className="cursor-pointer py-2 px-4 bg-blue-500 hover:bg-[#03346E] transition duration-300 ease-in-out text-white rounded-xl shadow-lg font-semibold"
                                             onClick={() => handleDeleteProduct(item.product_id)}
@@ -128,23 +127,23 @@ const Checkout = () => {
                         </div>
                     </section>
 
-                    <section className="w-full max-w-2/3">
-                        <div className="w-full border bg-[#FFFFFF] rounded-lg shadow-lg p-6">
-                            <h1 className="text-2xl font-bold text-gray-800 mb-6">Resumo do pedido</h1>
+                    <section className="w-full md:max-w-2/3">
+                        <div className="w-full border bg-[#FFFFFF] rounded-lg shadow-lg p-4 sm:p-6">
+                            <h1 className="text-xl md:text-2xl font-bold text-gray-800 mb-6 text-center md:text-left">Resumo do pedido</h1>
 
-                            <div className="flex justify-between items-center mb-4">
+                            <div className="flex justify-between items-center mb-4 text-sm sm:text-base">
                                 <p className="text-gray-700">Subtotal</p>
                                 <p className="text-gray-700 font-semibold">R$ {order ? order.total_price.toFixed(2) : "0.00"}</p>
                             </div>
 
-                            <div className="flex justify-between items-center mb-4">
+                            <div className="flex justify-between items-center mb-4 text-sm sm:text-base">
                                 <p className="text-gray-700">Taxa de entrega</p>
                                 <p className="text-gray-700 font-semibold">Calcular</p>
                             </div>
 
                             <div className="border-b border-gray-100 my-4"/>
 
-                            <div className="flex justify-between items-center mb-8">
+                            <div className="flex justify-between items-center mb-8 text-lg sm:text-xl">
                                 <p className="text-xl font-bold text-gray-800">Total do pedido</p>
                                 <p className="text-xl font-bold text-gray-800">R$ {order ? order.total_price.toFixed(2) : "0.00"}</p>
                             </div>

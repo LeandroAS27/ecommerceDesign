@@ -94,9 +94,21 @@ const Collections = () => {
                     <ModalCart isOpen={isModalOpen} onClose={handleCartModal}/>
                 </header>
 
-                <main className="w-full h-screen flex">
+                <main className="w-full h-full flex flex-col md:flex-row">
+                    {/* filtro so para mobile */}
+                    <div className="w-full p-4 bg-[#F5F5F5] block md:hidden rounded mb-4">
+                        <div className="flex justify-between items-center">
+                            <h2 className="text-base font-sembibold">Ordernar por</h2>
+                            <select className="bg-white rounded-md p-2" value={value} onChange={handleOptionSelected}>
+                                <option value="lowest">Menor preço</option>
+                                <option value="highest">Maior preço</option>
+                                <option value="a-z">A - Z</option>
+                                <option value="z-a">Z - A</option>
+                            </select>
+                        </div>
+                    </div>
                     {/* filter section */}
-                    <section className="flex flex-1 w-24 h-full mr-2"> 
+                    <section className="hidden md:flex flex-1 w-24 h-full mr-2"> 
                         <div className="w-full rounded flex flex-col items-center">
                             <div className="rounded my-8 bg-[#F5F5F5] w-full max-w-2/3 p-6 shadow-md">   
                                 <div className="flex space-x-4 items-center justify-between">
@@ -149,14 +161,14 @@ const Collections = () => {
                         </div>
                     </section>
                     {/* catalog section */}
-                    <section className="flex flex-2 w-64">
+                    <section className="flex md:flex-2 md:w-64 mb-4">
                         <div className="w-full h-full">
-                            <div className="grid grid-cols-3 gap-4">
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                                 {products.length > 0 && (
                                     products.map((product) => (
                                         <motion.div 
                                         key={product.idproducts} 
-                                        className="shadow-md rounded bg-[#FAFAFA] flex flex-col items-center justify-center p-8 w-full h-full hover:scale-105 transform transition duration-300"
+                                        className="shadow-md rounded bg-[#FAFAFA] flex flex-col items-center justify-between md:justify-center p-8 w-full h-full hover:scale-105 transform transition duration-300"
                                         initial={{opacity: 0, scale: 0 }}
                                         animate={{opacity: 1, scale: 1}}
                                         transition={{
@@ -170,7 +182,7 @@ const Collections = () => {
                                             width={200}
                                             height={100}
                                             /> 
-                                            <h1 className="text-2xl text-[#000] font-semibold font-title mb-2">{product.name}</h1>
+                                            <h1 className="text-xl md:text-2xl text-wrap text-[#000] font-semibold font-title mb-2">{product.name}</h1>
                                             <p className="text-lg mb-2 text-gray-700 font-sans">R$ {product.price.toFixed(2)}</p>
                                             <button 
                                             className="px-4 py-2 rounded-lg bg-[#7886C7] hover:bg-[#2D336B] transform transition duration-300 text-[#000] cursor-pointer"

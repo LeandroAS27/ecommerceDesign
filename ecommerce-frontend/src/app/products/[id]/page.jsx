@@ -134,7 +134,7 @@ const ProductPage = ({ params }) => {
                     <ModalCart isOpen={isModalOpen} onClose={handleCartModal}/>
                 </header>
 
-                <main className="w-full h-screen flex justify-center">
+                <main className="w-full h-full md:h-screen flex flex-col md:flex-row justify-center">
                     <section className="flex-1 flex flex-col gap-4 p-4 max-w-2xl">
                         <div className="w-full max-w-md aspect-square relative mx-auto">
                             <Image 
@@ -163,9 +163,9 @@ const ProductPage = ({ params }) => {
                                 <p className="text-white text-sm">-21%</p>
                             </div>
 
-                            <h1 className="text-3xl font-bold font-title mt-8 mb-2">{SelectedProduct.name}</h1>
+                            <h1 className="text-2xl md:text-3xl font-bold font-title mt-8 mb-2">{SelectedProduct.name}</h1>
                             <p className="text-black">{SelectedProduct.description}</p>
-                            <p className="underline text-blue-500 mb-4 cursor-pointer">Mais informações</p>
+                            <p className="underline text-base text-blue-500 mb-4 cursor-pointer">Mais informações</p>
 
                             <div className="space-y-2 text-black">
                                 <p className="space-x-2">A partir de <span className="font-bold text-2xl">R$ {SelectedProduct?.price ? SelectedProduct.price.toFixed(2) : "0.00"}</span> <span className="line-through">R$ {SelectedProduct?.price ? (SelectedProduct.price + 10).toFixed(2) : "0.00"}</span></p>
@@ -179,7 +179,7 @@ const ProductPage = ({ params }) => {
 
                             </div>
 
-                            <div className="flex items-center space-x-2 my-4">
+                            <div className="flex flex-col md:flex-row items-center space-x-2 my-4">
                                     <p className="text-gray-700">Quantidade:</p>
                                 <div className="bg-[#FFFFFF] p-2 rounded-lg">
                                     <span 
@@ -219,22 +219,22 @@ const ProductPage = ({ params }) => {
                             </div>
                         </div>
 
-                        <div className="w-full rounded-lg bg-[#F5F5F5] p-6">
-                            <h1 className="text-xl font-semibold mb-2">Calcule seu frete</h1>
+                        <div className="w-full rounded-lg bg-[#F5F5F5] p-4 sm:p-6">
+                            <h1 className="text-lg sm:text-xl font-semibold mb-2">Calcule seu frete</h1>
 
                             <div className="flex flex-col gap-3">
-                                <div className="flex max-w-2/3 space-x-4">
+                                <div className="flex flex-col sm:flex-row w-full sm:max-w-2/3 gap-2 sm:gap-4">
                                     <input 
                                     ref={inputRef}
                                     type="text" 
                                     placeholder="00000-000" 
                                     className="flex-1 p-3 rounded-lg bg-[#FFFFFF] focus:outline-none focus:ring-2 focus:ring-blue-400 transition appearance-none"
                                     />
-                                    <button className="px-4 py-2 bg-white rounded-lg cursor-pointer">Calcular</button>
+                                    <button className="w-full sm:w-auto px-4 py-2 bg-white rounded-lg cursor-pointer">Calcular</button>
                                 </div>
 
                                 <Link href='https://buscacepinter.correios.com.br/app/endereco/index.php' legacyBehavior>
-                                    <a target="_blank" rel="noopener noreferrer" className="underline text-blue-500 cursor-pointer">
+                                    <a target="_blank" rel="noopener noreferrer" className="underline text-blue-500 cursor-pointer text-sm sm:text-base">
                                         Não sei meu CEP
                                     </a>
                                 </Link>
