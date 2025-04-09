@@ -93,7 +93,7 @@ router.post('/checkout/add-item/cart', async(req, res) => {
             const updateTotalQuery = `
                 UPDATE orders
                 SET total_price = (
-                    SELECT SU   M(subtotal) FROM order_items WHERE order_id = ?
+                    SELECT SUM(subtotal) FROM order_items WHERE order_id = ?
                 )
                 WHERE idorders = ?
             `;
