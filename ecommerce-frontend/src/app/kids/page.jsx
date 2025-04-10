@@ -28,6 +28,7 @@ const Kids = () => {
     const router = useRouter();
     const [type, setType] = useState('')
     const [value, setValue] = useState('')
+    const [activeView, setActiveView] = useState(null) 
 
     const handleCartModal = () => {
         dispatch(toggleCart())
@@ -49,38 +50,44 @@ const Kids = () => {
                 const response = await fetch('http://localhost:5000/products')
                 const data = await response.json()
                 const filterData = data.result.filter(item => item.category_idcategories === 2)
-                console.log(filterData)
                 dispatch(setProducts(filterData)) 
             } catch (error) {
                 console.log("erro ao buscar os dados", error)
             }
         }
-        fetchProducts()
-    }, [dispatch])
 
-    const typeProducts = async () => {
-        try {
-            const response = await fetch(`http://localhost:5000/products/type?type=${type}`)
-            if(!response.ok){
-                throw new Error("Erro ao buscar os dados solicitados.", response.status)
+        const typeProducts = async () => {
+            try {
+                const response = await fetch(`http://localhost:5000/products/type?type=${type}`)
+                if(!response.ok){
+                    throw new Error("Erro ao buscar os dados solicitados.", response.status)
+                }
+                const data = await response.json()
+                const filterData = data.result.filter(item => item.category_idcategories === 2);
+                dispatch(setProducts(filterData))
+            } catch (error) {
+                console.log("Erro ao buscar os dados", error)
             }
-            const data = await response.json()
-            const filterData = data.result.filter(item => item.category_idcategories === 2);
-            dispatch(setProducts(filterData))
-        } catch (error) {
-            console.log("Erro ao buscar os dados", error)
         }
-    }
 
-    const handleFilterClick = (type) => {
-        setType(type)
-    }
-
-    useEffect(() => {
         if(type){
-            typeProducts(type)
+            typeProducts()
+        }else{
+            fetchProducts()
         }
-    }, [type])
+
+    }, [dispatch, type])
+
+
+    const handleFilterClick = (selectedType) => {
+        if(type === selectedType){
+            setActiveView(null)
+            setType(null)
+        }else{
+            setActiveView(selectedType)
+            setType(selectedType)
+        }
+    }
 
     const handleOptionSelected = (e) => {
         const option = e.target.value
@@ -143,19 +150,26 @@ const Kids = () => {
                             </div>
 
                             <ul className="space-y-2">
-                                <li className="cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition" onClick={() => handleFilterClick('shirt')}>
+                                <li className={`cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition ${activeView === 'shirt' ? "bg-black text-white" : "bg-transparent"}`}
+                                onClick={() => handleFilterClick('shirt')}
+                                >
                                     Camisetas
                                 </li>
 
-                                <li className="cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition" onClick={() => handleFilterClick('pants')}>
+                                <li className={`cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition ${activeView === 'pants' ? "bg-black text-white" : "bg-transparent"}`}
+                                onClick={() => handleFilterClick('pants')}
+                                >
                                     Calças
                                 </li>
 
-                                <li className="cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition" onClick={() => handleFilterClick('accessories')}>
+                                <li className={`cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition ${activeView === 'accessories' ? "bg-black text-white" : "bg-transparent"}`}
+                                onClick={() => handleFilterClick('accessories')}
+                                >
                                     Accessories
                                 </li>
 
-                                <li className="cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition" onClick={() => handleFilterClick('sneaker')}>
+                                <li className={`cursor-pointer py-1 px-2 rounded hover:bg-black hover:text-white transition ${activeView === 'sneaker' ? "bg-black text-white" : "bg-transparent"}`}
+                                onClick={() => handleFilterClick('sneaker')}>
                                     Tênis
                                 </li>
                             </ul>
