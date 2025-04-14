@@ -52,6 +52,22 @@ const Checkout = () => {
         }
     }
 
+    const handleSubmit = async() => {
+        try {
+            const response = await fetch('http://localhost:5000/create-checkout-session', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'Application/json'
+                },
+                body: JSON.stringify({ items })
+            });
+            const data = await response.json();
+            window.location.href = data.url
+        } catch (error) {
+            console.error("Erro no checkout", error)
+        }
+    }
+
     useEffect(() => {
         const fetchCheckoutProduct = async() => {
             try {
@@ -148,7 +164,10 @@ const Checkout = () => {
                                 <p className="text-xl font-bold text-gray-800">R$ {order ? order.total_price.toFixed(2) : "0.00"}</p>
                             </div>
 
-                            <button className="w-full py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-[#03346E] transition duration-300 ease-in-out cursor-pointer">
+                            <button 
+                            className="w-full py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-[#03346E] transition duration-300 ease-in-out cursor-pointer"
+                            onClick={handleSubmit}
+                            >
                                 Finalizar Compra
                             </button>
                         </div>

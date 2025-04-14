@@ -1,18 +1,23 @@
 "use client"
 
+//react
 import { useState } from "react";
+
+//next
 import Image from "next/image";
-import Eye from '../../../../public/olho-visível.png';
-import EyeClosed from '../../../../public/olho-fechado.png';
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+
+//image
+import Eye from '../../../../public/olho-visível.png';
+import EyeClosed from '../../../../public/olho-fechado.png';
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [isLogin, setIsLogin] = useState(false);
-    const [success, setSucess] = useState('')
+    const [isLogin, setIsLogin] = useState(null);
+    const [success, setSuccess] = useState('')
     const [error, setError] = useState('')
     const router = useRouter()
 
@@ -25,9 +30,11 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        
+
+        const isLoginMode = true
+        setIsLogin(isLoginMode)
+
         const sendData = async () => {
-            setIsLogin((prev) => !prev)
             try {
                 const response = await fetch("http://localhost:5000/login", {
                     method: "POST",
@@ -40,21 +47,18 @@ const Login = () => {
                     throw new Error(`Erro ao enviar os dados. ${response.status}`)
                 }
                 const data = await response.json()
-                console.log(isLogin)
-                if(isLogin){
+                if(isLoginMode){
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('user', JSON.stringify(data))
                     router.push('/')
-                    setSucess("Login feito com sucesso")
-                    setSucess('')
+                    setSuccess("Login feito com sucesso")
                 }else{
-                    alert(data.message)
-                    setSucess('')
+                    setSuccess('')
                 }
-                console.log("Dados enviados com sucesso", data)
             } catch (error) {
                 console.log("Erro ao enviar os dados", error)
             }
+            console.log(success)
         }
         sendData()
     }
@@ -108,6 +112,8 @@ const Login = () => {
                     <button className="w-full py-3 bg-[#EEEEEE] cursor-pointer font-semibold rounded-lg mt-4">
                         <Link href="/auth/register"><span className="text-gray-700">Create New Account</span></Link>
                     </button>
+
+                    <p>{success}</p>
                 </div>
             </div>
 

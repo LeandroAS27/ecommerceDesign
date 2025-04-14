@@ -47,6 +47,10 @@ const ProductPage = ({ params }) => {
 
     const sendToCheckout = async() => {
         try {
+            if(Object.keys(userInfo).length === 0){
+                alert("Precisa fazer login")
+                return;
+            }
             const response = await fetch('http://localhost:5000/checkout/add-item', {
                 method: "POST",
                 headers: {
