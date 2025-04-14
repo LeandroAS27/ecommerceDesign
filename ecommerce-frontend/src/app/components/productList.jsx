@@ -1,7 +1,7 @@
 "use client"
 
 //react
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 //redux
 import {useDispatch, useSelector} from 'react-redux';
@@ -18,17 +18,8 @@ import { useRouter } from 'next/navigation';
 const ProductList = ({showAll}) => {
     const dispatch = useDispatch()
     const products = useSelector((state) => state.products.items);
-    const [hovered, setHovered] = useState({});
     const favorites = useSelector((state) => state.favorites.favorites)
     const router = useRouter()
-
-    const handleMouseEnter = (id) => {
-        setHovered((prevState) => ({...prevState, [id]: true}))
-    }
-
-    const handleMouseLeave = (id) => {
-        setHovered((prevState) => ({...prevState, [id]: false}))
-    }
 
     const handleBuy = (id, product) => {
         localStorage.setItem('SelectedProduct', JSON.stringify(product))
@@ -70,7 +61,7 @@ const ProductList = ({showAll}) => {
                     return(
                         <div key={product.idproducts} className='relative rounded flex flex-col justify-center items-center space-y-2 aspect-[3/3]'>
                             <Image 
-                            src={`http://localhost:5000/media/${product.image_url}`}
+                            src={`http://localhost:5000/media/${product.image_url}` ? `http://localhost:5000/media/${product.image_url}` : noImage}
                             alt={product.name} 
                             className='w-full h-full object-cover rounded cursor-pointer'
                             width={200}

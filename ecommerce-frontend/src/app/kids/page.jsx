@@ -193,7 +193,7 @@ const Kids = () => {
                                     }}
                                     >
                                         <Image 
-                                        src={`http://localhost:5000/media/${product.image_url}`} 
+                                        src={`http://localhost:5000/media/${product.image_url}` ? `http://localhost:5000/media/${product.image_url}` : noImage} 
                                         alt={product.name} 
                                         className="rounded"
                                         width={200}

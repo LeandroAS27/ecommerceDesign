@@ -63,7 +63,6 @@ const ProductPage = ({ params }) => {
                     price: SelectedProduct.price
                 })
             })
-            const data = await response.json();
             if(!response.ok){
                 throw new Error("Erro ao enviar os dados", response.status)
             }
@@ -73,7 +72,7 @@ const ProductPage = ({ params }) => {
         }
     }
 
-    const handleQuantityIncrement = () => {
+    const handleQuantityIncrement = () => { //analisar o uso de redux aqui
         setValue((prev) => prev + 1)
     }  
     

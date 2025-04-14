@@ -15,7 +15,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 //images
-// import noImage from '../../../public/image-no-image.jpg';
+import noImage from '../../../public/image-no-image.jpg';
 import ModalCart from "../components/modalCart";
 
 //framer motion
@@ -193,7 +193,7 @@ const Women = () => {
                                     }}
                                     >
                                         <Image 
-                                        src={`http://localhost:5000/media/${product.image_url}`} 
+                                        src={`http://localhost:5000/media/${product.image_url}` ? `http://localhost:5000/media/${product.image_url}` : noImage} 
                                         alt={product.name} 
                                         className="rounded"
                                         width={200}

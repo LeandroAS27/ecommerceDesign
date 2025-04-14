@@ -1,17 +1,20 @@
 "use client"
 
+//react
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+
+//images
 import Eye from '../../../../public/olho-visível.png';
 import EyeClosed from '../../../../public/olho-fechado.png';
-import Link from "next/link";
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [userName, setUserName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [acceptedTerms, setAcceptedTerms] = useState(false);
+    // const [acceptedTerms, setAcceptedTerms] = useState(false);
     
     const userData = {userName, email, password}
 
@@ -95,19 +98,19 @@ const Register = () => {
 
                     <div className="flex space-x-2 items-center">
                         <input type="checkbox"/>
-                        <p>I accept the <span className="text-blue-500 font-bold">Terms &amp; Conditions</span></p>
+                        <p>Eu aceito os <span className="text-blue-500 font-bold">Termos &amp; Condições</span></p>
                     </div>
 
                     <button 
                     className="w-full py-3 bg-[#7886C7] cursor-pointer text-white font-semibold rounded-lg hover:bg-[#2D336B] transition"
                     onClick={handleSubmit}
                     >
-                        Sign up
+                        Cadastrar
                     </button>
                 </form>
 
                 <div className="mt-4 text-center w-full max-w-1/2">
-                    <p className="text-gray-400">Have an Account?</p>
+                    <p className="text-gray-400">Tem uma conta?</p>
                     <button className="w-full py-3 bg-[#EEEEEE] cursor-pointer font-semibold rounded-lg mt-4">
                         <Link href="/auth/login"><span className="text-gray-700">Log in</span></Link>
                     </button>

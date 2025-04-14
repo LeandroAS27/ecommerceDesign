@@ -10,7 +10,7 @@ import { increaseQuantityFromCart, decreaseQuantityFromCart, removeFromCart } fr
 
 //images
 import Image from "next/image";
-import noImage from '../../../public/image-no-image.jpg';
+// import noImage from '../../../public/image-no-image.jpg';
 import thrash from '../../../public/lixo.png';
 
 const ModalCart = ({ onClose, isOpen }) => {

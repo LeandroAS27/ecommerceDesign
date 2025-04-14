@@ -6,15 +6,11 @@ import Header from "../components/header";
 import ModalCart from "../components/modalCart";
 
 //react
-import { useParams } from "next/navigation";
 import { useState, useEffect, use } from "react";
-import Link from "next/link";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCart } from "../redux/modalSlice";
-import { addToCart, removeFromCart, updateCartItem } from "../redux/cartSlice";
-import { incrementQuantity, decrementQuantity } from "../redux/cartSlice";
 
 //images
 import Image from "next/image";

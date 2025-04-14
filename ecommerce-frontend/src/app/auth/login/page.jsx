@@ -47,7 +47,7 @@ const Login = () => {
                     throw new Error(`Erro ao enviar os dados. ${response.status}`)
                 }
                 const data = await response.json()
-                if(isLoginMode){
+                if(isLoginMode || isLogin){
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('user', JSON.stringify(data))
                     router.push('/')
@@ -57,8 +57,8 @@ const Login = () => {
                 }
             } catch (error) {
                 console.log("Erro ao enviar os dados", error)
+                setError(error)
             }
-            console.log(success)
         }
         sendData()
     }
@@ -107,13 +107,13 @@ const Login = () => {
                 </form>
 
                 <div className="mt-4 text-center w-full max-w-1/2">
-                    <p className="text-gray-700 text-sm">Forgot your password?</p>
-                    <p className="text-gray-400 mt-4">Don't Have an Account?</p>
+                    <p className="text-gray-700 text-sm">Esqueceu sua senha?</p>
+                    <p className="text-gray-400 mt-4">Não tem uma conta?</p>
                     <button className="w-full py-3 bg-[#EEEEEE] cursor-pointer font-semibold rounded-lg mt-4">
-                        <Link href="/auth/register"><span className="text-gray-700">Create New Account</span></Link>
+                        <Link href="/auth/register"><span className="text-gray-700">Criar uma conta</span></Link>
                     </button>
 
-                    <p>{success}</p>
+                    <p>{success ? success : error}</p>
                 </div>
             </div>
 

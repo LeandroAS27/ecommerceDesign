@@ -21,7 +21,6 @@ const Favorites = () => {
     const dispatch = useDispatch();
     const favorites = useSelector(state => state.favorites.favorites)
     const isModalOpen = useSelector(state => state.modalCart.isModalOpen)
-    const products = useSelector(state => state.products.items)
     const router = useRouter()
 
     const handleCartModal = () => {
@@ -52,7 +51,12 @@ const Favorites = () => {
                         {favorites.length > 0 ? (
                             favorites.map((fav) => (
                                 <div key={fav.idproducts} className="flex flex-col items-center justify-between bg-[#F5F5F5] shadow-md rounded-lg p-4 text-black">
-                                    <Image src={`http://localhost:5000/media/${fav.image_url}`} width={200} height={100}/>
+                                    <Image 
+                                    src={`http://localhost:5000/media/${fav.image_url}` ? `http://localhost:5000/media/${fav.image_url}` : noImage} 
+                                    alt={fav.name ? fav.name : "uma imagem"}
+                                    width={200}
+                                    height={100}
+                                    />
                                     <p className="mt-4 text-lg">{fav.name}</p>
                                     <p className="mt-2 text-lg font-semibold">R$ {fav.price.toFixed(2)}</p>
                                     <button className="px-4 py-2 rounded-lg bg-[#7886C7] hover:bg-[#2D336B] transform transition duration-300 text-[#000] cursor-pointer"
