@@ -1,7 +1,6 @@
 import express from 'express';
-import app from '../index.js'
-const router = express.Router();
 import { conexao } from '../../server.js';
+const router = express.Router();
 
 router.get('/products', (req, res) => {
     const sql = "SELECT * FROM bdcommerce.products"

@@ -1,7 +1,6 @@
 import express from 'express';
-import app from '../index.js'
-const router = express.Router();
 import { conexao } from '../../server.js';
+const router = express.Router();
 
 //busca por tipo de roupa
 router.get('/products/type', (req, res) => {

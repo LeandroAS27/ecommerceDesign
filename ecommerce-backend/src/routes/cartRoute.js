@@ -1,6 +1,5 @@
 import express from 'express';
 import { conexao } from '../../server.js';
-import { queryPromise } from './checkoutRoute.js';
 
 const router = express.Router();
 

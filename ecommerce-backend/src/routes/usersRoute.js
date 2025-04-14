@@ -1,8 +1,7 @@
 import express from 'express';
-import app from '../index.js';
-import { conexao } from '../../server.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { conexao } from '../../server.js';
 
 const router = express.Router();
 
