@@ -1,7 +1,10 @@
 import express from 'express';
-import app from '../index.js';
-const router = express.Router();
 import { conexao } from '../../server.js';
+import Stripe from 'stripe';
+import 'dotenv/config';
+import bodyParser from 'body-parser'
+const router = express.Router();
+const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY)
 
 router.post('/checkout/add-item', async(req, res) => {
     const {userId, productId, quantity, price} = req.body
@@ -173,6 +176,72 @@ router.delete('/checkout/:userId', async(req, res) => {
         }
         res.status(200).json({message: 'sucesso ao remover o produto e atualizar o pedido', result})
     })
+})
+
+router.post('/create-checkout-session', async(req, res) => {
+    const { items } = req.body;
+
+    console.log(items)
+
+    try {
+        const line_items = items.map(item => ({
+            price_data: {
+                currency: 'brl',
+                product_data: {
+                    name: item.name,
+                    images: [item.image_url],
+                },
+                unit_amount: Math.round(item.price * 100),
+            },
+            quantity: item.quantity,
+        }));
+
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            mode: 'payment',
+            line_items,
+            success_url: 'http://localhost:3000/success',
+            cancel_url: 'http://localhost:3000/canceled',
+        });
+
+        res.json({url: session.url})
+    } catch (error) {
+        console.error('Erro ao criar a sessao', error)
+        res.status(500).json({message: 'Erro ao criar sessao de pagamento'})
+    }
+})
+
+router.post('/webhook', bodyParser.raw({type: 'application/json'}), async(req, res) => {
+    const sig = req.headers['stripe-signature'];
+    let event;
+
+    try {
+        event = stripe.webhooks.constructEvent(
+            req.body,
+            sig,
+            process.env.STRIPE_WEBHOOK_SECRET
+        )
+    } catch (err) {
+        console.error('Erro ao verificar assinatura do webhook:', err.message);
+        return res.status(400).send(`Webook error: ${err.message}`);
+    }
+
+    if(event.type === 'checkout.session.completed'){
+        const session = event.data.object;
+
+        const orderId = session.metadata?.order_id;
+
+        if(orderId){
+            try {
+                await queryPromise("UPDATE orders SET status = 'paid' WHERE idorders = ?", [orderId]);
+                console.log(`Pedido ${orderId} atualizado com sucesso`);
+            } catch (error) {
+                console.error("Erro ao atualizar o pedido", error)
+            }
+        }
+    }
+
+    res.json({received: true})
 })
 
 export default router
