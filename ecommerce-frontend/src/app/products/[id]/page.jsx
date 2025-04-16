@@ -39,8 +39,6 @@ const ProductPage = ({ params }) => {
         }
     }
 
-    console.log(value)
-
     useEffect(() => {
         getUserInfo()
     }, [])

@@ -32,15 +32,12 @@ const Kids = () => {
 
     const handleCartModal = () => {
         dispatch(toggleCart())
-        console.log(`Estado do modal agora é ${!isModalOpen}`)
     }
 
     const handleBuy = (id, product) => {   
         localStorage.setItem('SelectedProduct', JSON.stringify(product));
         console.log("id do produto", products.idproducts)
-        // if(!product || !products.idproducts){ arrumar a condicional
-        //     return;
-        // }
+        
         router.push(`/products/${id}`)
     }
 

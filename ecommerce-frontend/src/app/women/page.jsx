@@ -91,7 +91,6 @@ const Women = () => {
         dispatch(sortProducts(option));
     }
 
-    console.log(value)
 
     return(
     <>

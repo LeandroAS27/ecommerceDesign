@@ -30,7 +30,6 @@ const ModalCart = ({ onClose, isOpen }) => {
         getUserInfo()
     }, [])
 
-    console.log(cart)
     
     const handleDecrease = (idproducts) => {
         dispatch(decreaseQuantityFromCart(idproducts))

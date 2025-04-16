@@ -37,9 +37,6 @@ const Men = () => {
     const handleBuy = (id, product) => {
         localStorage.setItem('SelectedProduct', JSON.stringify(product))
 
-        // if(!product || !products.idproducts){ arrumar a condicional
-        //     return;
-        // }
         router.push(`/products/${id}`)
     }
 
@@ -97,7 +94,6 @@ const Men = () => {
         dispatch(sortProducts(option))
     }
 
-    console.log(value)
 
     return(
         <>

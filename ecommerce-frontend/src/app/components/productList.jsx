@@ -32,7 +32,6 @@ const ProductList = ({showAll}) => {
             try {
                 const response = await fetch('http://localhost:5000/products')
                 const data = await response.json();
-                console.log(data)
 
                 const showProducts = showAll ? data.result : data.result.slice(0, 6)
                 dispatch(setProducts(showProducts))
@@ -51,7 +50,6 @@ const ProductList = ({showAll}) => {
     }
 
 
-    console.log(products)
     
     return(
         <div className='grid grid-cols-2 lg:grid-cols-3 gap-4'>
