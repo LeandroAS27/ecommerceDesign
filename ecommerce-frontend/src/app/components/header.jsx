@@ -37,7 +37,7 @@ const Header = ({onCartClick}) => {
     return(
         <>
             <header className="flex flex-col md:flex-row w-full justify-between my-8 font-title items-center space-y-2 md:space-y-0">
-                <h1 className="text-2xl font-bold"><Link href='/'>EcommerceDesign</Link></h1>
+                <h1 className="text-2xl font-bold hover:scale-105 transition duration-300"><Link href='/'>EcommerceDesign</Link></h1>
 
                 <nav className="flex space-x-4 list-none">
                     <Link href="/women">

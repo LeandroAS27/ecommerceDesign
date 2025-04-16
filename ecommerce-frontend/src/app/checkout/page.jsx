@@ -94,7 +94,7 @@ const Checkout = () => {
 
     return(
         <>
-            <div className="relative max-w-9/10 mx-auto px-2 bg-[#FFFFFF]">
+            <div className="relative max-w-9/10 mx-auto px-2">
                 <header className="mb-8">
                     <Header onCartClick={handleCartModal}/>
                     <ModalCart isOpen={isModalOpen} onClose={handleCartModal}/>
@@ -102,7 +102,7 @@ const Checkout = () => {
 
                 <main className="w-full h-full flex flex-col md:flex-row justify-center md:space-x-8 mx-auto mb-4 space-y-4 md:space-y-0 px-4">
                     <section className="w-full md:max-w-2/4 mb-4 md:mb-0">
-                        <div className="w-full border bg-[#FFFFFF] rounded-lg shadow-lg p-4 sm:p-6">
+                        <div className="w-full border bg-[#FFFFFF] rounded-lg shadow-lg p-4 sm:p-6 hover:border-blue-500 transition ease duration-300">
                             <h1 className="text-xl sm:text-2xl font-bold text-gray-800 mb-6 text-center md:text-left">Itens do carrinho</h1>
 
                             {items.length > 0 ? (
@@ -140,7 +140,7 @@ const Checkout = () => {
                     </section>
 
                     <section className="w-full md:max-w-2/3">
-                        <div className="w-full border bg-[#FFFFFF] rounded-lg shadow-lg p-4 sm:p-6">
+                        <div className="w-full border bg-[#FFFFFF] rounded-lg shadow-lg p-4 sm:p-6 hover:border-blue-500 transition ease duration-300">
                             <h1 className="text-xl md:text-2xl font-bold text-gray-800 mb-6 text-center md:text-left">Resumo do pedido</h1>
 
                             <div className="flex justify-between items-center mb-4 text-sm sm:text-base">

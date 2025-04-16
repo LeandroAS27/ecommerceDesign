@@ -40,7 +40,7 @@ const Favorites = () => {
 
     return(
         <>
-            <div className="relative max-w-9/10 mx-auto px-2 bg-[#FFFFFF]">
+            <div className="relative max-w-9/10 mx-auto px-2">
                 <header>
                     <Header onCartClick={handleCartModal}/>
                     <ModalCart isOpen={isModalOpen} onClose={handleCartModal}/>

@@ -131,7 +131,7 @@ const ProductPage = ({ params }) => {
 
     return(
         <>
-            <div className="relative max-w-9/10 mx-auto px-2 bg-[#FFFFFF]">
+            <div className="relative max-w-9/10 mx-auto px-2">
                 <header className="mb-8">
                     <Header onCartClick={handleCartModal}/>
                     <ModalCart isOpen={isModalOpen} onClose={handleCartModal}/>
@@ -148,7 +148,7 @@ const ProductPage = ({ params }) => {
                             />
                         </div>
 
-                        <div className="bg-[#F5F5F5] rounded-lg w-full p-8 text-black">
+                        <div className="bg-[#F5F5F5] rounded-lg w-full p-8 text-black shadow-md">
                             <h1 className="mb-4 text-xl">Descrição</h1>
                             <p>{SelectedProduct.description}</p>
                             <p>Tamanho da Camiseta:</p>
@@ -161,7 +161,7 @@ const ProductPage = ({ params }) => {
 
                     {/* coluna direita: informacoes produto */}
                     <section className="flex-1 space-y-6 p-4 max-w-xl">
-                        <div className="relative bg-[#F5F5F5] rounded w-full p-8">
+                        <div className="relative bg-[#F5F5F5] rounded w-full p-8 shadow-md">
                             <div className="absolute left-4 top-4 bg-black p-2 rounded">
                                 <p className="text-white text-sm">-21%</p>
                             </div>
@@ -222,7 +222,7 @@ const ProductPage = ({ params }) => {
                             </div>
                         </div>
 
-                        <div className="w-full rounded-lg bg-[#F5F5F5] p-4 sm:p-6">
+                        <div className="w-full rounded-lg bg-[#F5F5F5] p-4 sm:p-6 shadow-md">
                             <h1 className="text-lg sm:text-xl font-semibold mb-2">Calcule seu frete</h1>
 
                             <div className="flex flex-col gap-3">

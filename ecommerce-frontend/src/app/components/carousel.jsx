@@ -56,10 +56,10 @@ const Carousel = () => {
                         />
 
                         <div className="absolute top-30 left-4 md:top-1/2 -translate-y-1/2 md:left-20 md:space-y-2">
-                            <h1 className="text-2xl md:text-5xl text-[#BDB395] font-bold">Timeless Fashion,</h1>
-                            <h2 className="md:text-3xl text-[#D5C7A3]">Conscious Choices</h2>
+                            <h1 className="text-2xl md:text-5xl text-[#FAF1E6] font-bold">Timeless Fashion,</h1>
+                            <h2 className="md:text-3xl text-[#FDFAF6]">Conscious Choices</h2>
 
-                            <p className="text-sm md:text-lg text-[#F2E2B1] mb-8">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam unde mollitia explicabo incidunt ipsa error </p>
+                            <p className="text-sm md:text-lg text-[#FDFAF6] mb-8">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam unde mollitia explicabo incidunt ipsa error </p>
 
                             
                             <Link href='/collections' className="text-sm md:text-lg text-black font-bold cursor-pointer px-4 py-2 md:px-6 md:py-4 bg-[#F6F0F0] rounded-full mt-4">Explore the Collections</Link>

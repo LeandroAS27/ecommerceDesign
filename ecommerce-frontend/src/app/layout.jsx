@@ -13,7 +13,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
       <html lang="pt-br">
-        <body className={`${poppins.className} ${montserrat.className} antialiased`}>
+        <body className={`min-h-screen bg-gradient-to-r from-[#ECE9E6] to-[#FFFFFF] ${poppins.className} ${montserrat.className} antialiased`}>
           <Providers>
             {children}
           </Providers>
